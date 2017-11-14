@@ -1,0 +1,30 @@
+/*html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   margin: 0px;
+   min-height: 100%;
+   width: 100%;
+}*/
+a{
+	color: #212529;
+}
+.borderdiv
+{
+	border: 1px solid #DFDFDF;
+	border-radius: 4px;
+	background-color: #343A40;
+	color: #FFFFFF;
+	text-align: center;
+	margin-top: 10px;
+}
+.martop
+{
+	margin-top: 10px;
+}
+.input-recaptcha{
+ width:172px;   
+}
