@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>ABC</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="Assets/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 
 <body>
@@ -110,7 +110,7 @@
 					</div>
 				</div>
 				<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-sm">
+					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<br>
 							<div class="bs-example bs-example-tabs">
