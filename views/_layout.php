@@ -1,3 +1,10 @@
+<?php 
+
+require_once "./lib/db.php";
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,7 +15,7 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">ProCam</a>
+			<a class="navbar-brand" href="index.php">ProCam</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
@@ -19,12 +26,15 @@
 							Sản phẩm
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="indexpro.php?id=MAKTS">Máy ảnh kỹ thuật số</a>
-							<a class="dropdown-item" href="indexpro.php?id=DSLR">Máy ảnh DSLR</a>
-							<a class="dropdown-item" href="indexpro.php?id=MQP">Máy quay phim</a>
-							<a class="dropdown-item" href="indexpro.php?id=MALL">Máy ảnh chụp lấy liền</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="indexpro.php?id=PKMA">Phụ kiện máy ảnh</a>
+							<?php
+								$sql = "select * from categories";
+								$rs = load($sql);
+								while($row = $rs->fetch_assoc()) :
+							?>
+							<a class="dropdown-item" href="indexpro.php?SP=<?= $row["CatID"]?>"><?= $row["CatName"] ?></a>
+							<?php
+								endwhile;
+							?>
 						</div>
 					</li>
 					<li class="nav-item">
@@ -63,81 +73,34 @@
 							<h3 class="panel-title">Danh mục</h3>
 						</div>
 						<div class="list-group">
-							<a class="list-group-item" href="indexpro.php?id=MAKTS">Máy ảnh kỹ thuật số</a>
-							<a class="list-group-item" href="indexpro.php?id=DSLR">Máy ảnh DSLR</a>
-							<a class="list-group-item" href="indexpro.php?id=MQP">Máy quay phim</a>
-							<a class="list-group-item" href="indexpro.php?id=MALL">Máy ảnh chụp lấy liền</a>
-							<a class="list-group-item" href="indexpro.php?id=PKMA">Phụ kiện máy ảnh</a>
+							<?php
+								$sql = "select * from categories";
+								$rs = load($sql);
+								while($row = $rs->fetch_assoc()) :
+							?>
+							<a class="list-group-item" href="indexpro.php?SP=<?= $row["CatID"]?>"><?= $row["CatName"] ?></a>
+							<?php
+								endwhile;
+							?>
 						</div>
 					</div>
 					<div class="panel panel-default">
 						<div class="borderdiv">
 							<h3 class="panel-title">Nhà sản xuất</h3>
 						</div>
-						<a href="#" class="list-group-item">Nikon</a>
-						<a href="#" class="list-group-item">Canon</a>
-						<a href="#" class="list-group-item">Sony</a>
-						<a href="#" class="list-group-item">Khác</a>
+						<?php
+								$sql = "select * from NSX";
+								$rs = load($sql);
+								while($row = $rs->fetch_assoc()) :
+							?>
+							<a class="list-group-item" href="indexpro.php?NSX=<?= $row["IDNSX"]?>"><?= $row["NameNSX"] ?></a>
+							<?php
+								endwhile;
+							?>
 					</div>
 				</div>
 				<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-					<div class="panel panel-default">
-						<div class="borderdiv">
-							<h3 class="panel-title">Sản phẩm mới</h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-sm-3">
-									<div class="card">
-										<div class="card-body">
-											<h4 class="card-title">Special title treatment</h4>
-											<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-											<a href="#" class="btn btn-success">Mua</a>
-											<a href="#" class="btn btn-secondary">Xem chi tiết</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="borderdiv">
-							<h3 class="panel-title">Sản phẩm bán chạy</h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-sm-3">
-									<div class="card">
-										<div class="card-body">
-											<h4 class="card-title">Special title treatment</h4>
-											<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-											<a href="#" class="btn btn-success">Mua</a>
-											<a href="#" class="btn btn-secondary">Xem chi tiết</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="borderdiv">
-							<h3 class="panel-title">Sản phẩm xem nhiều nhất</h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-sm-3">
-									<div class="card">
-										<div class="card-body">
-											<h4 class="card-title">Special title treatment</h4>
-											<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-											<a href="#" class="btn btn-success">Mua</a>
-											<a href="#" class="btn btn-secondary">Xem chi tiết</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php include_once $page_body_file; ?>
 				</div>
 			</div>
 			<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
