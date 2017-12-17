@@ -1,10 +1,6 @@
-<?php 
-
+<?php
 require_once "./lib/db.php";
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -66,7 +62,7 @@ require_once "./lib/db.php";
 		</div>
 		<div class="container-fluid">
 			<div class="row">
-				
+	
 				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 					<div class="panel panel-default">
 						<div class="borderdiv">
@@ -92,11 +88,11 @@ require_once "./lib/db.php";
 								$sql = "select * from NSX";
 								$rs = load($sql);
 								while($row = $rs->fetch_assoc()) :
-							?>
-							<a class="list-group-item" href="indexpro.php?NSX=<?= $row["IDNSX"]?>"><?= $row["NameNSX"] ?></a>
-							<?php
-								endwhile;
-							?>
+						?>
+						<a class="list-group-item" href="indexpro.php?NSX=<?= $row["IDNSX"]?>"><?= $row["NameNSX"] ?></a>
+						<?php
+							endwhile;
+						?>
 					</div>
 				</div>
 				<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
@@ -196,53 +192,56 @@ require_once "./lib/db.php";
 												<label class="control-label" for="humancheck">Humanity Check:</label>
 												<div class="controls">
 													<label class="radio inline" for="humancheck-0">
-														<input type="radio" name="humancheck" id="humancheck-0" value="robot" checked="checked">I'm a Robot</label>
-														<label class="radio inline" for="humancheck-1">
-															<input type="radio" name="humancheck" id="humancheck-1" value="human">I'm Human</label>
-														</div>
-													</div>
-													
-													<!-- Button -->
-													<div class="control-group">
-														<label class="control-label" for="confirmsignup"></label>
-														<div class="controls">
-															<button id="confirmsignup" name="confirmsignup" class="btn btn-success">Đăng ký</button>
-														</div>
-													</div>
-												</fieldset>
-											</form>
-										</div>
-									</div>
-								</div>
-								<div class="modal-footer">
-									<center>
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</center>
+														<input type="radio" name="humancheck" id="humancheck-0" value="robot" checked="checked">I'm a Robot
+													</label>
+													<label class="radio inline" for="humancheck-1">
+														<input type="radio" name="humancheck" id="humancheck-1" value="human">I'm Human
+													</label>
+												</div>
+											</div>
+											
+											<!-- Button -->
+											<div class="control-group">
+												<label class="control-label" for="confirmsignup"></label>
+												<div class="controls">
+													<button id="confirmsignup" name="confirmsignup" class="btn btn-success">Đăng ký</button>
+												</div>
+											</div>
+										</fieldset>
+									</form>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div id="myCont" class="modal fade" role="dialog" class="modal-dialog modal-lg">
-					<div class="modal-dialog">
-						<!-- Modal content-->
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title">Liên hệ</h4>
-							</div>
-							<div class="modal-body">
-								<p><a href="https://mail.google.com">Email: tuansang9710@gmail.com</a></p>
-								<p><a href="https://www.facebook.com/tuan.sang97">FB: www.facebook.com/tuan.sang97<a></p>
-								<p>SĐT: 01216955090</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							</div>
+						<div class="modal-footer">
+							<center>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</center>
 						</div>
 					</div>
 				</div>
-				<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-			</body>
-		</html>
+			</div>
+		</div>
+		<div id="myCont" class="modal fade" role="dialog" class="modal-dialog modal-lg">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Liên hệ</h4>
+					</div>
+					<div class="modal-body">
+						<p><a href="https://mail.google.com">Email: tuansang9710@gmail.com</a></p>
+						<p><a href="https://www.facebook.com/tuan.sang97">FB: www.facebook.com/tuan.sang97<a></p>
+						<p>SĐT: 01216955090</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	</body>
+</html>

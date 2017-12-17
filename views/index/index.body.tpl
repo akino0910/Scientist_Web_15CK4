@@ -19,12 +19,12 @@ require_once "./lib/db.php";
 						<h4 class="card-title"><?= $row["ProName"] ?></h4>
 						<p class="red"><?= number_format($row["Price"]) ?>đ</p>
 						<a href="#" class="btn btn-success">Mua</a>
-						<a href="#" class="btn btn-secondary">Xem chi tiết</a>
+						<a href="viewpros.php?Pro=<?= $row["ProID"] ?>" class="btn btn-secondary">Xem chi tiết</a>
 					</div>
 				</div>
 			</div>
-			<?php	
-				endwhile;
+			<?php
+			endwhile;
 			?>
 		</div>
 	</div>
@@ -47,12 +47,12 @@ require_once "./lib/db.php";
 						<h4 class="card-title"><?= $row["ProName"] ?></h4>
 						<p class="red"><?= number_format($row["Price"]) ?>đ</p>
 						<a href="#" class="btn btn-success">Mua</a>
-						<a href="#" class="btn btn-secondary">Xem chi tiết</a>
+						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
 					</div>
 				</div>
 			</div>
-			<?php	
-				endwhile;
+			<?php
+			endwhile;
 			?>
 		</div>
 	</div>
@@ -75,12 +75,12 @@ require_once "./lib/db.php";
 						<h4 class="card-title"><?= $row["ProName"] ?></h4>
 						<p class="red"><?= number_format($row["Price"]) ?>đ</p>
 						<a href="#" class="btn btn-success">Mua</a>
-						<a href="#" class="btn btn-secondary">Xem chi tiết</a>
+						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
 					</div>
 				</div>
 			</div>
-			<?php	
-				endwhile;
+			<?php
+			endwhile;
 			?>
 		</div>
 	</div>

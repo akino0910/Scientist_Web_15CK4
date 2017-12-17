@@ -12,6 +12,18 @@ body {
 a{
 	color: #212529;
 }
+.dam
+{
+	font-weight: bold;
+}
+.borderbot
+{
+	border-bottom: 1px solid #ABB1BA;
+}
+.borderleft
+{
+	border-left: 1px solid #ABB1BA;
+}
 .borderdiv
 {
 	border: 1px solid #DFDFDF;
@@ -36,4 +48,22 @@ a{
 .cao
 {
 	height: 300px;
+}
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
