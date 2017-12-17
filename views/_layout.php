@@ -57,9 +57,7 @@ require_once "./lib/db.php";
 				</ul>
 			</div>
 		</nav>
-		<div>
-			<img src="img/nikon1.jpg" width="100%">
-		</div>
+		<?php include_once $loadpicture; ?>
 		<div class="container-fluid">
 			<div class="row">
 	

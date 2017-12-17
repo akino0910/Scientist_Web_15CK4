@@ -1,5 +1,4 @@
 <?php
-require_once "./lib/db.php";
 ?>
 <div class="panel panel-default">
 	<div class="borderdiv">

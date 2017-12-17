@@ -1,5 +1,4 @@
 <?php
-require_once "./lib/db.php";
 // Cai nay hem lam dc
 if((!isset($_GET['SP'])) && (!isset($_GET['NSX'])))
 	{
@@ -9,12 +8,27 @@ if((!isset($_GET['SP'])) && (!isset($_GET['NSX'])))
 	}
 if(isset($_GET['SP']))
 {
+	$sql = "select * from categories";
+	$nrc = findnumrow($sql);
 	$SP = $_GET['SP'];
+	if($SP<=0 || $SP > $nrc)
+	{
+		header("Location: index.php");
+		return;
+	}
 	$sql = "select * from products where CatID = $SP";
 }
 if(isset($_GET['NSX']))
 {
+	$sql = "select * from categories";
+	$nrsx = findnumrow($sql);
 	$NSX = $_GET['NSX'];
+	if($NSX<=0 || $NSX > $nrsx)
+	{
+		header("Location: index.php");
+		return;
+	}
+	
 	$sql = "select * from products where IDNSX = $NSX";
 }
 ?>

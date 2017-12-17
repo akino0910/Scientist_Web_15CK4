@@ -1,11 +1,14 @@
 <?php
-if(!isset($_GET['Pro']))
-{
-	header('Location: index.php');
-}
+$sql = "select * from products";
+$nr = findnumrow($sql);
 if(isset($_GET['Pro']))
 {
 	$ProID = $_GET['Pro'];
+	if($ProID <= 0 || $ProID >$nr)
+	{
+		header("Location: index.php");
+		return;
+	}
 	$sql = "select * from products where ProID = $ProID";
 	$rs = load($sql);
 	while($row = $rs -> fetch_assoc()) :
@@ -49,6 +52,10 @@ if(isset($_GET['Pro']))
 </div>
 <?php
 	endwhile;
+}
+else{
+	header("Location: index.php");
+	return;
 }
 ?>
 <div class="dam martop">
