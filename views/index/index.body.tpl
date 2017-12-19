@@ -1,3 +1,5 @@
+<?php
+?>
 <div class="panel panel-default">
 	<div class="borderdiv">
 		<h3 class="panel-title">Sản phẩm mới</h3>
@@ -11,18 +13,12 @@
 			?>
 			<div class="col-sm-4">
 				<div class="card cao">
-					<div class="card-body row">
-						<div class="col-sm-6">
-							<img src="img/product/<?= $row["ProID"]?>/1.png" style="width: 200px;">
-						</div>
-						<div class="col-sm-6">
-							<h4 class="card-title"><?= $row["ProName"] ?></h4>
-							<p class="red"><?= number_format($row["Price"]) ?>đ</p>
-						</div>
-					</div>
-					<div class="marbotle">
+					<div class="card-body">
+						<img src="img/nikon1.jpg" style="width: 200px;">
+						<h4 class="card-title"><?= $row["ProName"] ?></h4>
+						<p class="red"><?= number_format($row["Price"]) ?>đ</p>
 						<a href="#" class="btn btn-success">Mua</a>
-						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+						<a href="viewpros.php?Pro=<?= $row["ProID"] ?>" class="btn btn-secondary">Xem chi tiết</a>
 					</div>
 				</div>
 			</div>
@@ -45,16 +41,10 @@
 			?>
 			<div class="col-sm-4">
 				<div class="card cao">
-					<div class="card-body row">
-						<div class="col-sm-6">
-							<img src="img/product/<?= $row["ProID"]?>/1.png" style="width: 200px;">
-						</div>
-						<div class="col-sm-6">
-							<h4 class="card-title"><?= $row["ProName"] ?></h4>
-							<p class="red"><?= number_format($row["Price"]) ?>đ</p>
-						</div>
-					</div>
-					<div class="marbotle">
+					<div class="card-body">
+						<img src="img/nikon1.jpg" style="width: 200px;">
+						<h4 class="card-title"><?= $row["ProName"] ?></h4>
+						<p class="red"><?= number_format($row["Price"]) ?>đ</p>
 						<a href="#" class="btn btn-success">Mua</a>
 						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
 					</div>
@@ -79,16 +69,10 @@
 			?>
 			<div class="col-sm-4">
 				<div class="card cao">
-					<div class="card-body row">
-						<div class="col-sm-6">
-							<img src="img/product/<?= $row["ProID"]?>/1.png" style="width: 200px;">
-						</div>
-						<div class="col-sm-6">
-							<h4 class="card-title"><?= $row["ProName"] ?></h4>
-							<p class="red"><?= number_format($row["Price"]) ?>đ</p>
-						</div>
-					</div>
-					<div class="marbotle">
+					<div class="card-body">
+						<img src="img/nikon1.jpg" style="width: 200px;">
+						<h4 class="card-title"><?= $row["ProName"] ?></h4>
+						<p class="red"><?= number_format($row["Price"]) ?>đ</p>
 						<a href="#" class="btn btn-success">Mua</a>
 						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
 					</div>

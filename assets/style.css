@@ -1,6 +1,14 @@
-.hei{
-    height: 500px;
+/*html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
 }
+
+body {
+   margin: 0px;
+   min-height: 100%;
+   width: 100%;
+}*/
 a{
 	color: #212529;
 }
@@ -25,11 +33,6 @@ a{
 	text-align: center;
 	margin-top: 10px;
 }
-.marbotle
-{
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
 .martop
 {
 	margin-top: 10px;
@@ -40,7 +43,7 @@ a{
 .red
 {
 	color: red;
-	font-size: 22px;
+	font-size: 24px;
 }
 .cao
 {
