@@ -1,19 +1,17 @@
 <?php
 	require_once "./lib/db.php";
-	// if(!isset($_GET["search"]))
-	// {
-				// 	header("Location: index.php");
-				// 	return;
-	// }
-	// $search = $_GET["search"];
-	// var_dump($search);
+	if(!isset($_POST["Ten"]))
+	{
+		header("location: index.php");
+		return;
+	}
 	$sql = "select * from categories";
 	$nrc = findnumrow($sql);
 	$sql = "select * from nsx";
 	$nrsx = findnumrow($sql);
-	$Ten = $_GET["Ten"];
-	$min = $_GET["nhonhat"];
-	$max = $_GET["lonnhat"];
+	$Ten = $_POST["Ten"];
+	$min = $_POST["nhonhat"];
+	$max = $_POST["lonnhat"];
 	if($Ten == "")
 	{
 		$sql = "select * from products where Price >= $min and Price <= $max";
@@ -25,7 +23,7 @@
 	$dem = 1;
 	$str1 = "";
 	for ($i=1; $i <= $nrc ; $i++) {
-		if(isset($_GET["SP$i"])){
+		if(isset($_POST["SP$i"])){
 			if($dem > 1)
 			{
 				$str1 = $str1 . " or CatID = $i";
@@ -46,7 +44,7 @@
 	$dem = 1;
 	$str2 = "";
 	for ($j=1; $j <= $nrsx ; $j++) {
-		if(isset($_GET["NSX$j"])){
+		if(isset($_POST["NSX$j"])){
 			if($dem > 1)
 			{
 				$str2 = $str2 . " or IDNSX = $j";

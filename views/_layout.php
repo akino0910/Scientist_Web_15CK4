@@ -40,11 +40,7 @@ require_once "./lib/db.php";
 						<a class="nav-link" href="#" data-toggle="modal" data-target="#myCont">Liên hệ</a>
 					</li>
 					
-				</ul><!-- 
-				<form name="" action="" class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="text" id="search" name="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form> -->
+				</ul>
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
 						<a class="nav-link" href="#">Giỏ hàng</a>
@@ -60,13 +56,8 @@ require_once "./lib/db.php";
 		<?php include_once $loadpicture; ?>
 		<div class="container-fluid">
 			<div class="row">
-<<<<<<< HEAD
 				
 				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-=======
-	
-				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
->>>>>>> parent of b8a5bd0... Xử lý lỗi, Load ảnh
 					<div class="panel panel-default">
 						<div class="borderdiv">
 							<h3 class="panel-title">Danh mục</h3>
@@ -101,7 +92,7 @@ require_once "./lib/db.php";
 						<div class="borderdiv">
 							<h3 class="panel-title">Lọc tìm sản phẩm</h3>
 						</div>
-						<form name="formsearch" action="search.php">
+						<form name="formsearch" action="search.php" method="post">
 							<div class="dam marbotle">Tìm theo tên: </div>
 							<div>
 								<input class="form-control" type="text" id="Ten" name="Ten" placeholder="Nhập tên sản phẩm cần tìm">
@@ -302,8 +293,8 @@ require_once "./lib/db.php";
 			</div>
 		</div>
 		
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 	</body>
 </html>
