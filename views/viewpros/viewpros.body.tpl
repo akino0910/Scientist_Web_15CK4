@@ -11,16 +11,41 @@ if(isset($_GET['Pro']))
 	}
 	$sql = "select * from products where ProID = $ProID";
 	$rs = load($sql);
-	while($row = $rs -> fetch_assoc()) :
+	$row = $rs -> fetch_assoc();
 	$CatID = $row["CatID"];
 	$IDNSX = $row["IDNSX"];
 	$LX = $row["LX"] + 1;
 	$sql = "update products set LX = $LX where ProID = $ProID";
 	write($sql);
+	$sqlnew = "select SLAnh from products where ProID = $ProID";
+	$rsnew = load($sqlnew);
+	$kqnew = $rsnew->fetch_assoc();
+	$slanh = $kqnew["SLAnh"];
 ?>
 <div class="row martop">
 	<div class="col-sm-4">
-		<img src="img/nikon1.jpg" style="width: 100%">
+		<div id="demo" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="img/product/<?= $ProID ?>/1.png" width="100%" >
+				</div>
+				<?php
+				for ($i=2; $i <= $slanh ; $i++) {
+				?>
+				<div class="carousel-item">
+					<img src="img/product/<?= $ProID ?>/<?= $i ?>.png" width="100%" >
+				</div>
+				<?php
+					}
+				?>
+			</div>
+			<a class="carousel-control-prev" href="#demo" data-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</a>
+			<a class="carousel-control-next" href="#demo" data-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</a>
+		</div>
 	</div>
 	<div class="col-sm-8">
 		<h3 class="card-title borderbot"><?= $row["ProName"] ?></h3>
@@ -47,11 +72,14 @@ if(isset($_GET['Pro']))
 				?>
 				<div class="martop">Nhà sản xuất: <?= $kq["NameNSX"] ?></div>
 			</div>
+			<div class="">
+				<input class="" type="number" value="1" size="100px">
+				<a href="#" class="btn btn-success">Đặt mua</a>
+			</div>
 		</div>
 	</div>
 </div>
 <?php
-	endwhile;
 }
 else{
 	header("Location: index.php");
@@ -62,7 +90,6 @@ else{
 	Các mặt hàng cùng loại:
 </div>
 <div class="row martop">
-	
 	<?php
 		$sql = "select * from products where CatID = $CatID and ProID != $ProID";
 		$rs = load($sql);
@@ -74,9 +101,12 @@ else{
 	<div class="col-sm-2">
 		<div class="card cao">
 			<div class="card-body">
-				<img src="img/nikon1.jpg" style="width: 100px;">
-				<div class="dam"><?= $kq["ProName"] ?></div>
+				<img src="img/product/<?= $kq['ProID'] ?>/1.png" style="width: 100px;">
+				<div class="dam martop"><?= $kq["ProName"] ?></div>
 				<p class="red"><?= number_format($kq["Price"]) ?>đ</p>
+				
+			</div>
+			<div class="marbotle">
 				<a href="#" class="btn btn-success">Mua</a>
 				<a href="viewpros.php?Pro=<?= $kq["ProID"] ?>" class="btn btn-secondary">Chi tiết</a>
 			</div>
@@ -91,7 +121,6 @@ else{
 	Các mặt hàng cùng NSX:
 </div>
 <div class="row martop">
-	
 	<?php
 		$sql = "select * from products where IDNSX = $IDNSX and ProID != $ProID";
 		$rs = load($sql);
@@ -103,9 +132,11 @@ else{
 	<div class="col-sm-2">
 		<div class="card cao">
 			<div class="card-body">
-				<img src="img/nikon1.jpg" style="width: 100px;">
-				<div class="dam"><?= $kq["ProName"] ?></div>
+				<img src="img/product/<?= $kq['ProID'] ?>/1.png" style="width: 100px;">
+				<div class="dam martop"><?= $kq["ProName"] ?></div>
 				<p class="red"><?= number_format($kq["Price"]) ?>đ</p>
+			</div>
+			<div class="marbotle">
 				<a href="#" class="btn btn-success">Mua</a>
 				<a href="viewpros.php?Pro=<?= $kq["ProID"] ?>" class="btn btn-secondary">Chi tiết</a>
 			</div>
