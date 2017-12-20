@@ -1,68 +1,74 @@
 <?php
 	require_once "./lib/db.php";
-	if(!isset($_POST["Ten"]))
-	{
-		header("location: index.php");
-		return;
-	}
 	$sql = "select * from categories";
 	$nrc = findnumrow($sql);
 	$sql = "select * from nsx";
 	$nrsx = findnumrow($sql);
-	$Ten = $_POST["Ten"];
-	$min = $_POST["nhonhat"];
-	$max = $_POST["lonnhat"];
-	if($Ten == "")
+	if(isset($_POST["Ten"]))
 	{
-		$sql = "select * from products where Price >= $min and Price <= $max";
-	}
-	else
-	{
-		$sql = "select * from products where ProName LIKE '%$Ten%' and Price >= $min and Price <= $max";
-	}
-	$dem = 1;
-	$str1 = "";
-	for ($i=1; $i <= $nrc ; $i++) {
-		if(isset($_POST["SP$i"])){
-			if($dem > 1)
-			{
-				$str1 = $str1 . " or CatID = $i";
+		$Ten = $_POST["Ten"];
+		$min = $_POST["nhonhat"];
+		$max = $_POST["lonnhat"];
+		if($Ten == "")
+		{
+			$sql = "select * from products where Price >= $min and Price <= $max";
+		}
+		else
+		{
+			$sql = "select * from products where ProName LIKE '%$Ten%' and Price >= $min and Price <= $max";
+		}
+		$dem = 1;
+		$str1 = "";
+		for ($i=1; $i <= $nrc ; $i++) {
+			if(isset($_POST["SP$i"])){
+				if($dem > 1)
+				{
+					$str1 = $str1 . " or CatID = $i";
+					$dem ++;
+				}
+				else
+				{
+				$str1 = $str1 . "CatID = $i";
 				$dem ++;
-			}
-			else
-			{
-			$str1 = $str1 . "CatID = $i";
-			$dem ++;
+				}
 			}
 		}
-	}
-	if($str1 != "")
-	{
-		$sql = $sql . " and (" . $str1 .") ";
-	}
-	
-	$dem = 1;
-	$str2 = "";
-	for ($j=1; $j <= $nrsx ; $j++) {
-		if(isset($_POST["NSX$j"])){
-			if($dem > 1)
-			{
-				$str2 = $str2 . " or IDNSX = $j";
+		if($str1 != "")
+		{
+			$sql = $sql . " and (" . $str1 .") ";
+		}
+		
+		$dem = 1;
+		$str2 = "";
+		for ($j=1; $j <= $nrsx ; $j++) {
+			if(isset($_POST["NSX$j"])){
+				if($dem > 1)
+				{
+					$str2 = $str2 . " or IDNSX = $j";
+					$dem ++;
+				}
+				else
+				{
+				$str2 = $str2 . "IDNSX = $j";
 				$dem ++;
-			}
-			else
-			{
-			$str2 = $str2 . "IDNSX = $j";
-			$dem ++;
+				}
 			}
 		}
-	}
-	if($str2 != "")
-	{
-		$sql = $sql . " and (" . $str2 .") ";
+		if($str2 != "")
+		{
+			$sql = $sql . " and (" . $str2 .") ";
+		}
 	}
 	$rs = load($sql);
 	$nr = findnumrow($sql);
+	$limit = 8;
+	$page = ceil($nr / $limit);
+
+	if(isset($_GET["page"]))
+	{
+		echo "$sql";
+		return;
+	}
 ?>
 <div class="panel panel-default">
 	<div class="borderdiv">

@@ -1,11 +1,26 @@
 <?php
 require_once "./lib/db.php";
+session_start();
+if (!isset($_SESSION["ttdn"])) 
+{
+	$_SESSION["ttdn"] = 0;
+}
+if ($_SESSION["ttdn"] == 0) {
+		if(isset($_COOKIE["auth_user_id"])) {
+			// tái tạo session
+			$user_id = $_COOKIE["auth_user_id"];
+			$sql = "select * from users where f_ID = $user_id";
+			$rs = load($sql);
+			$_SESSION["current_user"] = $rs->fetch_object();
+			$_SESSION["ttdn"] = 1;
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>ABC</title>
+		<title>ProCam</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="assets/style.css">
 	</head>
@@ -46,11 +61,39 @@ require_once "./lib/db.php";
 						<a class="nav-link" href="#">Giỏ hàng</a>
 					</li>
 				</ul>
+				<?php 
+					if ($_SESSION["ttdn"] == 0) 
+					{
+				?>
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
 						<a class="nav-link" href="#" data-toggle="modal" data-target=".bs-modal-sm">Đăng nhập</a>
 					</li>
 				</ul>
+				<?php
+					}
+					if($_SESSION["ttdn"] == 1)
+					{
+						$nguoidung = $_SESSION["current_user"];
+				?>
+				<ul class="navbar-nav mr-0">
+					<li class="nav-item">
+						<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<?= $nguoidung->f_Name ?>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="profile.php">Thông tin cá nhân</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="xuly.php?Thoat=1">Thoát</a>
+						</div>
+					</li>
+					</li>
+				</ul>
+
+				<?php
+					}
+				?>
 			</div>
 		</nav>
 		<?php include_once $loadpicture; ?>
@@ -166,7 +209,7 @@ require_once "./lib/db.php";
 						<div class="modal-body">
 							<div id="myTabContent" class="tab-content">
 								<div class="tab-pane fade active in" id="signin">
-									<form class="form-horizontal">
+									<form class="form-horizontal" name="fdangnhap" action="xuly.php" method="post">
 										<fieldset>
 											<!-- Sign In Form -->
 											<!-- Text input-->
@@ -188,7 +231,7 @@ require_once "./lib/db.php";
 												<label class="control-label" for="rememberme"></label>
 												<div class="controls">
 													<label class="checkbox inline" for="rememberme-0">
-														<input type="checkbox" name="rememberme" id="rememberme-0" value="Remember me">
+														<input type="checkbox" name="rememberme" id="rememberme" value="Remember me">
 														Ghi nhớ tài khoản
 													</label>
 												</div>
@@ -204,7 +247,7 @@ require_once "./lib/db.php";
 									</form>
 								</div>
 								<div class="tab-pane fade" id="signup">
-									<form class="form-horizontal">
+									<form class="form-horizontal" name="fdangky" action="xuly.php" method="post">
 										<fieldset>
 											<!-- Sign Up Form -->
 											<!-- Text input-->
@@ -257,7 +300,7 @@ require_once "./lib/db.php";
 											<div class="control-group">
 												<label class="control-label" for="confirmsignup"></label>
 												<div class="controls">
-													<button id="confirmsignup" name="confirmsignup" class="btn btn-success">Đăng ký</button>
+													<button id="signup" name="signup" class="btn btn-success">Đăng ký</button>
 												</div>
 											</div>
 										</fieldset>
