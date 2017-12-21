@@ -62,10 +62,17 @@
 				?>
 				<div class="martop">Nhà sản xuất: <?= $kq["NameNSX"] ?></div>
 			</div>
-			<div class="">
-				<input class="" type="number" value="1" size="100px">
-				<a href="#" class="btn btn-success">Đặt mua</a>
-			</div>
+			<form name="faddpro" action="addItemToCart.inc.php" method="post">
+				<div>
+					<input type="hidden" name="txtProID" value="<?= $_GET["Pro"] ?>">
+					<input type="text" class="form-control" value="1" name="txtQuantity" id="txtQuantity">
+				</div>
+				<div class="martop">
+					<button class="btn btn-success" type="submit" name="btnAddItemToCart">
+					Mua
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -90,8 +97,16 @@
 				
 			</div>
 			<div class="marbotle">
-				<a href="#" class="btn btn-success">Mua</a>
-				<a href="viewpros.php?Pro=<?= $kq["ProID"] ?>" class="btn btn-secondary">Chi tiết</a>
+				<form name="faddpro" action="addItemToCart.inc.php" method="post">
+					<input type="hidden" name="txtProID" value="<?= $kq["ProID"] ?>">
+					<input type="hidden" name="txtQuantity" value="1">
+					<!-- <a href="addItemToCart.inc.php?" class="btn btn-success">Mua</a> -->
+					<button class="btn btn-success" type="submit" name="btnAddItemToCart">
+					Mua
+					</button>
+					
+					<a href="viewpros.php?Pro=<?= $kq['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -120,8 +135,16 @@
 				<p class="red"><?= number_format($kq["Price"]) ?>đ</p>
 			</div>
 			<div class="marbotle">
-				<a href="#" class="btn btn-success">Mua</a>
-				<a href="viewpros.php?Pro=<?= $kq["ProID"] ?>" class="btn btn-secondary">Chi tiết</a>
+				<form name="faddpro" action="addItemToCart.inc.php" method="post">
+					<input type="hidden" name="txtProID" value="<?= $kq["ProID"] ?>">
+					<input type="hidden" name="txtQuantity" value="1">
+					<!-- <a href="addItemToCart.inc.php?" class="btn btn-success">Mua</a> -->
+					<button class="btn btn-success" type="submit" name="btnAddItemToCart">
+					Mua
+					</button>
+					
+					<a href="viewpros.php?Pro=<?= $kq['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+				</form>
 			</div>
 		</div>
 	</div>

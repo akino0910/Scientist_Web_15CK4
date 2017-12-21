@@ -1,7 +1,7 @@
 <?php
 require_once "./lib/db.php";
-session_start();
-if (!isset($_SESSION["ttdn"])) 
+require_once 'cart.inc';
+if (!isset($_SESSION["ttdn"]))
 {
 	$_SESSION["ttdn"] = 0;
 }
@@ -21,7 +21,9 @@ if ($_SESSION["ttdn"] == 0) {
 	<head>
 		<meta charset="UTF-8">
 		<title>ProCam</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" > -->
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+		<link rel="stylesheet" href="assets/bootstrap4.min.css" >
 		<link rel="stylesheet" type="text/css" href="assets/style.css">
 	</head>
 	<body>
@@ -58,11 +60,11 @@ if ($_SESSION["ttdn"] == 0) {
 				</ul>
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Giỏ hàng</a>
+						<a class="nav-link" href="viewcart.php">Giỏ hàng (<?= get_total_items() ?>) </a>
 					</li>
 				</ul>
-				<?php 
-					if ($_SESSION["ttdn"] == 0) 
+				<?php
+					if ($_SESSION["ttdn"] == 0)
 					{
 				?>
 				<ul class="navbar-nav mr-0">
@@ -79,18 +81,17 @@ if ($_SESSION["ttdn"] == 0) {
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
 						<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<?= $nguoidung->f_Name ?>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="profile.php">Thông tin cá nhân</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="xuly.php?Thoat=1">Thoát</a>
-						</div>
-					</li>
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<?= $nguoidung->f_Name ?>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="profile.php">Thông tin cá nhân</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="xuly.php?Thoat=1">Thoát</a>
+							</div>
+						</li>
 					</li>
 				</ul>
-
 				<?php
 					}
 				?>
@@ -335,9 +336,36 @@ if ($_SESSION["ttdn"] == 0) {
 				</div>
 			</div>
 		</div>
-		
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script> -->
+		<script src="assets/jquery3.2.1.slim.min.js"></script>
+		<script src="assets/popper.min.js"></script>
+		<script src="assets/bootstrap4.min.js"></script>
+		<script src="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+		<script type="text/javascript">
+		$(function () {
+			$('#txtQuantity').TouchSpin({
+				min: 1,
+				max: 69
+			});
+		});
+		</script>
+		<script type="text/javascript">
+			$('.cart-remove').on('click', function() {
+				var id = $(this).data('id');
+				$('#txtDProId').val(id);
+			$('#txtCmd').val('D');
+			$('#f').submit();
+			});
+			$('.cart-update').on('click', function() {
+				var q = $(this).closest('tr').find('.quantity-textfield').val();
+				$('#txtUQ').val(q);
+				var id = $(this).data('id');
+				$('#txtDProId').val(id);
+			$('#txtCmd').val('U');
+			$('#f').submit();
+			});
+		</script>
 	</body>
 </html>

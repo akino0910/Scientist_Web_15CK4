@@ -21,8 +21,16 @@
 						</div>
 					</div>
 					<div class="marbotle">
-						<a href="#" class="btn btn-success">Mua</a>
+						<form name="faddpro" action="addItemToCart.inc.php" method="post">
+							<input type="hidden" name="txtProID" value="<?= $row["ProID"] ?>">
+							<input type="hidden" name="txtQuantity" value="1">
+							<!-- <a href="addItemToCart.inc.php?" class="btn btn-success">Mua</a> -->
+							<button class="btn btn-success" type="submit" name="btnAddItemToCart">
+							Mua
+							</button>
+						
 						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -55,8 +63,16 @@
 						</div>
 					</div>
 					<div class="marbotle">
-						<a href="#" class="btn btn-success">Mua</a>
+						<form name="faddpro" action="addItemToCart.inc.php" method="post">
+							<input type="hidden" name="txtProID" value="<?= $row["ProID"] ?>">
+							<input type="hidden" name="txtQuantity" value="1">
+							<!-- <a href="addItemToCart.inc.php?" class="btn btn-success">Mua</a> -->
+							<button class="btn btn-success" type="submit" name="btnAddItemToCart">
+							Mua
+							</button>
+						
 						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -89,8 +105,16 @@
 						</div>
 					</div>
 					<div class="marbotle">
-						<a href="#" class="btn btn-success">Mua</a>
+						<form name="faddpro" action="addItemToCart.inc.php" method="post">
+							<input type="hidden" name="txtProID" value="<?= $row["ProID"] ?>">
+							<input type="hidden" name="txtQuantity" value="1">
+							<!-- <a href="addItemToCart.inc.php?" class="btn btn-success">Mua</a> -->
+							<button class="btn btn-success" type="submit" name="btnAddItemToCart">
+							Mua
+							</button>
+						
 						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,6 @@ require_once "./lib/db.php";
 session_start();
 $nguoidung = $_SESSION["current_user"];
 $oldpass = $nguoidung->f_Password;
-var_dump($oldpass);
 if (!isset($_SESSION["ttdn"]) || $_SESSION["ttdn"] == 0)
 {
 	header("location: index.php");
@@ -25,7 +24,7 @@ if(isset($_POST["tt"]))
 		$sql = "update users set f_Name = '$newName',f_Email = '$newEmail',f_DOB = '$newDOB' where f_ID = $ID";
 		}
 		write($sql);
-		header('Location: ' . $_SERVER['HTTP_REFERER']);
+		// header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 	if(isset($_POST["oldpass"]) && isset($_POST["pass"]) && isset($_POST["repass"])){
 		$ID = $nguoidung->f_ID;
@@ -47,6 +46,12 @@ if(isset($_POST["tt"]))
 		write($sql);
 		// header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
+	$sql = "select * from users where f_ID = '$ID'";
+	$rs = load($sql);
+	if ($rs->num_rows > 0) {
+		$_SESSION["current_user"] = $rs->fetch_object();
+		$_SESSION["ttdn"] = 1;
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -54,7 +59,8 @@ if(isset($_POST["tt"]))
 	<head>
 		<meta charset="UTF-8">
 		<title>ProCam - Thông tin cá nhân</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css> -->
+		<link rel="stylesheet" href="assets/bootstrap4.min.css" >
 		<link rel="stylesheet" type="text/css" href="assets/style.css">
 	</head>
 	<body>
@@ -151,8 +157,11 @@ if(isset($_POST["tt"]))
 				</div>
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script> -->
+		<script src="assets/jquery3.2.1.slim.min.js"></script>
+		<script src="assets/popper.min.js"></script>
+		<script src="assets/bootstrap4.min.js"></script>
 	</body>
 </html>
