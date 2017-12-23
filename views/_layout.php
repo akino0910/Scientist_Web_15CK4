@@ -25,10 +25,11 @@ if ($_SESSION["ttdn"] == 0) {
 		<link rel="stylesheet" type="text/css" href="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
 		<link rel="stylesheet" href="assets/bootstrap4.min.css" >
 		<link rel="stylesheet" type="text/css" href="assets/style.css">
+		<link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="index.php">ProCam</a>
+			<a class="navbar-brand" href="index.php"><i class="fa fa-camera"></i> ProCam</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
@@ -60,7 +61,7 @@ if ($_SESSION["ttdn"] == 0) {
 				</ul>
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
-						<a class="nav-link" href="viewcart.php">Giỏ hàng (<?= get_total_items() ?>) </a>
+						<a class="nav-link" href="viewcart.php"><i class="fa fa-cart-arrow-down"></i> Giỏ hàng (<?= get_total_items() ?>) </a>
 					</li>
 				</ul>
 				<?php
@@ -69,7 +70,7 @@ if ($_SESSION["ttdn"] == 0) {
 				?>
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
-						<a class="nav-link" href="#" data-toggle="modal" data-target=".bs-modal-sm">Đăng nhập</a>
+						<a class="nav-link" href="#" data-toggle="modal" data-target=".bs-modal-sm"><i class="fa fa-user-circle-o"></i> Đăng nhập</a>
 					</li>
 				</ul>
 				<?php
@@ -143,8 +144,10 @@ if ($_SESSION["ttdn"] == 0) {
 							</div>
 							<div class="dam marbotle">Tìm theo giá: </div>
 							<div>
-								<input class="form-control" type="number" id="nhonhat" name="nhonhat" value="0">
-								<input class="form-control" type="number" id="lonnhat" name="lonnhat" value="1000000000">
+								<!-- <input class="form-control" type="number" id="nhonhat" name="nhonhat" value="0">
+								<input class="form-control" type="number" id="lonnhat" name="lonnhat" value="1000000000"> -->
+								<input type="text" class="form-control" value="1" name="nhonhat" id="nhonhat">
+								<input type="text" class="form-control" value="1000000000" name="lonnhat" id="lonnhat">
 							</div>
 							<div class="dam marbotle">Tìm theo loại: </div>
 							<div class="row">
@@ -204,7 +207,7 @@ if ($_SESSION["ttdn"] == 0) {
 							<ul id="myTab" class="nav nav-tabs">
 								<li class="active"><a href="#signin" data-toggle="tab">Đăng nhập</a></li>
 								<div> | </div>
-								<li class=""><a href="#signup" data-toggle="tab">Đăng ký</a></li>
+								<li><a href="#signup" data-toggle="tab">Đăng ký</a></li>
 							</ul>
 						</div>
 						<div class="modal-body">
@@ -326,9 +329,9 @@ if ($_SESSION["ttdn"] == 0) {
 						<h4 class="modal-title">Liên hệ</h4>
 					</div>
 					<div class="modal-body">
-						<p><a href="https://mail.google.com">Email: tuansang9710@gmail.com</a></p>
-						<p><a href="https://www.facebook.com/tuan.sang97">FB: www.facebook.com/tuan.sang97<a></p>
-						<p>SĐT: 01216955090</p>
+						<p><a href="https://mail.google.com"><i class="fa fa-address-card-o"></i> : tuansang9710@gmail.com</a></p>
+						<p><a href="https://www.facebook.com/tuan.sang97"><i class="fa fa-facebook-official"></i> : www.facebook.com/tuan.sang97<a></p>
+						<p><i class="fa fa-phone"></i> : 01216955090</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -347,7 +350,21 @@ if ($_SESSION["ttdn"] == 0) {
 		$(function () {
 			$('#txtQuantity').TouchSpin({
 				min: 1,
-				max: 69
+				max: <?= $row["Quantity"] ?>
+			});
+		});
+		$(function () {
+			$('#nhonhat').TouchSpin({
+				min: 0,
+                max: 1000000000,
+                step: 100000
+			});
+		});
+		$(function () {
+			$('#lonnhat').TouchSpin({
+				min: 1000,
+                max: 1000000000,
+                step: 100000
 			});
 		});
 		</script>

@@ -33,7 +33,7 @@
 					<td><?= number_format($row["Price"]) ?></td>
 					<!-- <td><?= $q ?></td> -->
 					<td>
-						<input class="quantity-textfield" type="text" name="" id="" value="<?= $q ?>">
+						<input class="quantity-textfield" type="text" name="soluongdat" id="soluongdat" value="<?= $q ?>"> / <?= $row["Quantity"] ?>
 					</td>
 					<td><?= number_format($amount) ?></td>
 					<td class="text-right">

@@ -105,6 +105,7 @@ if(isset($_POST["tt"]))
 						<div class="list-group">
 							<a class="list-group-item" href="?td1">Cập nhật thông tin cá nhân</a>
 							<a class="list-group-item" href="?td2">Thay đổi mật khẩu</a>
+							<a class="list-group-item" href="?td3">Lịch sử mua hàng</a>
 						</div>
 					</div>
 				</div>
@@ -126,11 +127,14 @@ if(isset($_POST["tt"]))
 								<input class="form-control" type="password" id="pass" name="pass">
 								Xác nhận lại mật khẩu:
 								<input class="form-control" type="password" id="repass" name="repass">
+								<div class="martop">
+									<button class="btn btn-success my-2 my-sm-0" type="submit" name="tt" id="tt">Cập nhật</button>
+								</div>
 							</div>
 						</div>
 						<?php
 						}
-						else{
+						elseif(isset($_GET["td1"])){
 						?>
 						<div class="borderdiv">
 							<h3 class="panel-title">Thông tin cá nhân</h3>
@@ -145,21 +149,117 @@ if(isset($_POST["tt"]))
 								<input class="form-control" type="text" id="Name" name="Name" value="<?= $nguoidung->f_Name ?>">
 								Ngày sinh:
 								<input class="form-control" type="date" id="NS" name="NS" value="<?= $nguoidung->f_DOB ?>">
+								<div class="martop">
+									<button class="btn btn-success my-2 my-sm-0" type="submit" name="tt" id="tt">Cập nhật</button>
+								</div>
+							</div>
+						</div>
+						<?php
+						}
+						elseif(isset($_GET["td3"])){
+							$ID = $nguoidung->f_ID;
+						?>
+						<div class="borderdiv">
+							<h3 class="panel-title">Lịch sử mua hàng</h3>
+						</div>
+						<div class="row">
+							<div class="list-group col-2">
+							</div>
+							<div class="list-group col-6">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Mã đơn hàng</th>
+											<th>Ngày đặt hàng</th>
+											<th>Thành tiền</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										$sql = "select * from orders where UserID = $ID ORDER BY OrderID DESC";
+										$rs = load($sql);
+										while ($row = $rs->fetch_assoc()) :
+										?>
+										<tr>
+											<td><?= $row["OrderID"] ?></td>
+											<td><?= $row["OrderDate"] ?></td>
+											<td><?=  number_format($row["Total"]) ?>đ</td>
+											<td><a class="btn btn-xs btn-success" href="?dh=<?= $row["OrderID"] ?>" role="button">
+												Chi tiết
+											</a></td>
+										</tr>
+										<?php
+										endwhile;
+										?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<?php
+						}
+						elseif(isset($_GET["dh"])){
+						?>
+						<div class="borderdiv">
+							<h3 class="panel-title">Lịch sử mua hàng</h3>
+						</div>
+						<div class="row">
+							<div class="list-group col-2">
+							</div>
+							<div class="list-group col-6">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Tên mặt hàng</th>
+											<th>Số lượng</th>
+											<th>Đơn giá</th>
+											<th>Thành tiền</th>
+											<th style="width: 15%">Trạng thái</th>
+										</tr>
+									</thead>
+									<tbody class="bg">
+										<?php
+										$madon = $_GET["dh"];
+										$sql = "select * from orderdetails where OrderID = $madon";
+										$rs = load($sql);
+										while ($row = $rs->fetch_assoc()) :
+										?>
+										<tr>
+											<td><?= $row["ID"] ?></td>
+											<?php
+											$ProID = $row["ProID"];
+											$sqlnew = "select ProName from products where ProID = $ProID";
+											$kq = load($sqlnew);
+											$Name = $kq->fetch_assoc();
+											?>
+											<td><?= $Name["ProName"] ?></td>
+											<td><?= $row["Quantity"] ?></td>
+											<td><?= number_format($row["Price"]) ?>đ</td>
+											<td><?= number_format($row["Amount"]) ?>đ</td>
+											<td><?= $row["TrangThai"] ?></td>
+										</tr>
+										<?php
+										endwhile;
+										?>
+									</tbody>
+								</table>
+								<div>
+								<a class="btn btn-xs btn-success" href="?td3" role="button">
+									Quay lại
+								</a>
+								</div>
 							</div>
 						</div>
 						<?php
 						}
 						?>
 						<div class="martop col-8 text-right">
-							<button class="btn btn-success" name="tt" id="tt">Cập nhật</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script> -->
 		<script src="assets/jquery3.2.1.slim.min.js"></script>
 		<script src="assets/popper.min.js"></script>
 		<script src="assets/bootstrap4.min.js"></script>
