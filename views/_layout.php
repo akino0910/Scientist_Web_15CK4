@@ -233,26 +233,39 @@ if ($_SESSION["ttdn"] == 0) {
 								<div class="tab-pane fade" id="signup">
 									<form class="form-horizontal" method="post" id="regForm">
 										<input type="email" id="regEmail" class="form-control" placeholder="Email">
-										<div id="nd"></div>
+										<div class="alert alert-danger" role="alert" style="display: none" id="errEmail">
+											<strong>Trời!</strong> Nhập Email vô kìa ấy ới ơi.
+										</div>
 										<br>
 										<input type="text" id="regUsername" class="form-control" placeholder="Tên tài khoản">
+										<div class="alert alert-danger" role="alert" style="display: none" id="errUsername">
+											<strong>@@!</strong> Không có username thì đăng nhập làm sao đây???.
+										</div>
 										<br>
 										<input type="password" id="regPass" class="form-control" placeholder="Mật khẩu">
+										<div class="alert alert-danger" role="alert" style="display: none" id="errPass">
+											<strong>Bó tay!</strong> Không có mật khẩu thì bảo mật bằng niềm tin à.
+										</div>
 										<br>
 										<input type="password" id="regRePass" class="form-control" placeholder="Nhập lại mật khẩu">
+										<div class="alert alert-danger" role="alert" style="display: none" id="errRePass">
+											<strong>Thiệt tình!</strong> Gõ lại mật khẩu mà cũng sai nữa là sao.
+										</div>
 										<br>
 										<div class="g-recaptcha" data-sitekey="6Ld9zjgUAAAAAHpQ35RNeLBFfzZHsr2GmHA9xrnS"></div>
+										<div class="alert alert-danger" role="alert" id="errCaptcha" style="display: none">
+											<strong>Úi giời ơi!</strong> Chú ý capcha kìa bạn ơi.
+										</div>
+<!--
 										<br>
 										<div class="form-check">
 											<label class="form-check-label">
 												<input id="btnRegCheckbox" type="checkbox" class="form-check-input" value="remember-me">Bạn có đồng ý với điều khoản củ *** này ko?
 											</label>
 										</div>
+-->
 										<br>
-										<button id="btnReg" type="button" class="btn btn-success">
-											Đăng ký
-										</button>
-										
+										<button id="btnReg" type="button" class="btn btn-success">Đăng ký</button>
 									</form>
 								</div>
 							</div>
@@ -284,13 +297,12 @@ if ($_SESSION["ttdn"] == 0) {
 				</div>
 			</div>
 		</div>
-		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+		<script src="Assets/jquery-3.2.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script> -->
-		<script src="assets/jquery3.2.1.slim.min.js"></script>
-		<script src="assets/popper.min.js"></script>
-		<script src="assets/bootstrap4.min.js"></script>
-		<script src="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+		<script src="Assets/popper.min.js"></script>
+		<script src="Assets/bootstrap4.min.js"></script>
+		<script src="Assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 		<script type="text/javascript">
 		$(function () {
 			$('#txtQuantity').TouchSpin({
@@ -329,5 +341,6 @@ if ($_SESSION["ttdn"] == 0) {
 			$('#f').submit();
 			});
 		</script>
+		<script src="views/user/userXL.js"></script>
 	</body>
 </html>
