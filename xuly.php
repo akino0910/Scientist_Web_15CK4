@@ -13,6 +13,16 @@
 		if ($rs->num_rows > 0) {
 			$_SESSION["current_user"] = $rs->fetch_object();
 			$_SESSION["ttdn"] = 1;
+			if($_SESSION["current_user"]->f_Permission == 1)
+			{
+				if (isset($_SESSION["ttdn"])) 
+				{
+				unset($_SESSION["ttdn"]);
+				unset($_SESSION["current_user"]);
+				}
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			return;
+			}
 			// lưu cookie, thông tin cần lưu là id của người dùng
 			if(isset($_POST["rememberme"])) {
 				$user_id = $_SESSION["current_user"]->f_ID;
@@ -26,6 +36,11 @@
 	}
 	if(isset($_POST["signup"]))
 	{
+		if(!isset($_POST["g-recaptcha-response"]) || $_POST["g-recaptcha-response"] == "")
+		{
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			return;
+		}
 		if($_POST["password"] != $_POST["reenterpassword"])
 		{
 			header('Location: ' . $_SERVER['HTTP_REFERER']);

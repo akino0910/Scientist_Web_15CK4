@@ -19,7 +19,7 @@
 					$o_UserID = $_SESSION["current_user"]->f_ID;
 					$o_OrderDate = strtotime("+7 hours", time());
 					$str_OrderDate = date("Y-m-d H:i:s", $o_OrderDate);
-					$sql = "insert into orders(OrderDate, UserID, Total) values('$str_OrderDate', $o_UserID, $o_Total)";
+					$sql = "insert into orders(OrderDate, UserID, Total, TrangThai) values('$str_OrderDate', $o_UserID, $o_Total, 'Chưa giao')";
 					write($sql);
 					$sqlnew = "select max(OrderID) from orders";
 					$rs = load($sqlnew);

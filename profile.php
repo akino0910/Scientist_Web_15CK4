@@ -163,15 +163,16 @@ if(isset($_POST["tt"]))
 							<h3 class="panel-title">Lịch sử mua hàng</h3>
 						</div>
 						<div class="row">
-							<div class="list-group col-2">
+							<div class="list-group col-1">
 							</div>
-							<div class="list-group col-6">
+							<div class="list-group col-10">
 								<table class="table table-hover">
 									<thead>
 										<tr>
 											<th>Mã đơn hàng</th>
 											<th>Ngày đặt hàng</th>
 											<th>Thành tiền</th>
+											<th>Trạng thái</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -185,6 +186,7 @@ if(isset($_POST["tt"]))
 											<td><?= $row["OrderID"] ?></td>
 											<td><?= $row["OrderDate"] ?></td>
 											<td><?=  number_format($row["Total"]) ?>đ</td>
+											<td><?= $row["TrangThai"] ?></td>
 											<td><a class="btn btn-xs btn-success" href="?dh=<?= $row["OrderID"] ?>" role="button">
 												Chi tiết
 											</a></td>
@@ -204,9 +206,9 @@ if(isset($_POST["tt"]))
 							<h3 class="panel-title">Lịch sử mua hàng</h3>
 						</div>
 						<div class="row">
-							<div class="list-group col-2">
+							<div class="list-group col-1">
 							</div>
-							<div class="list-group col-6">
+							<div class="list-group col-10">
 								<table class="table table-hover">
 									<thead>
 										<tr>
@@ -215,7 +217,6 @@ if(isset($_POST["tt"]))
 											<th>Số lượng</th>
 											<th>Đơn giá</th>
 											<th>Thành tiền</th>
-											<th style="width: 15%">Trạng thái</th>
 										</tr>
 									</thead>
 									<tbody class="bg">
@@ -237,7 +238,6 @@ if(isset($_POST["tt"]))
 											<td><?= $row["Quantity"] ?></td>
 											<td><?= number_format($row["Price"]) ?>đ</td>
 											<td><?= number_format($row["Amount"]) ?>đ</td>
-											<td><?= $row["TrangThai"] ?></td>
 										</tr>
 										<?php
 										endwhile;
