@@ -217,11 +217,7 @@ if ($_SESSION["ttdn"] == 0) {
 						<div class="modal-body">
 							<div id="myTabContent" class="tab-content active">
 								<div class="tab-pane fade active show" id="signin">
-<<<<<<< HEAD
 									<form class="form-horizontal" method="post" action="xuly.php" id="loginForm">
-=======
-									<form class="form-horizontal" method="post" action="xuly.php">
->>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 										<input required="" id="userid" name="userid" type="text" class="form-control" placeholder="Tên đăng nhập" class="input-medium" required="">
 										<br>
 										<input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="********" class="input-medium">
@@ -235,7 +231,6 @@ if ($_SESSION["ttdn"] == 0) {
 									</form>
 								</div>
 								<div class="tab-pane fade" id="signup">
-<<<<<<< HEAD
 									<form class="form-horizontal" method="post" action="xuly.php" id="regForm>
 										<input id="Email" name="Email" class="form-control" type="text" placeholder="Email của bạn" class="input-large" required="">
 										<div class="alert alert-danger" role="alert" style="display: none" id="errEmail">
@@ -262,20 +257,6 @@ if ($_SESSION["ttdn"] == 0) {
 										<div class="alert alert-danger" role="alert" id="errCaptcha" style="display: none">
 											<strong>Úi giời ơi!</strong> Chú ý capcha kìa bạn ơi.
 										</div>
-=======
-									<form class="form-horizontal" method="post" action="xuly.php">
-										<input id="Email" name="Email" class="form-control" type="text" placeholder="Email của bạn" class="input-large" required="">
-										<div id="nd"></div>
-										<br>
-										<input id="userid" name="userid" class="form-control" type="text" placeholder="Tên tài khoản" class="input-large" required="">
-										<br>
-										<input id="password" name="password" class="form-control" type="password" placeholder="********" class="input-large" required="">
-										<br>
-										<input id="reenterpassword" class="form-control" name="reenterpassword" type="password" placeholder="********" class="input-large" required="">
-										<br>
-										<div class="g-recaptcha" data-sitekey="6Ld9zjgUAAAAAHpQ35RNeLBFfzZHsr2GmHA9xrnS"></div>
-										<br>
->>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 											<button id="signup" name="signup" class="btn btn-success">Đăng ký</button>
 									</form>
 								</div>
@@ -353,5 +334,6 @@ if ($_SESSION["ttdn"] == 0) {
 			$('#f').submit();
 			});
 		</script>
+		<script src="views/user/userXL.js"></script>
 	</body>
 </html>
