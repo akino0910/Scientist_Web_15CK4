@@ -49,7 +49,7 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 						$rs = load( $sql );
 						while ( $row = $rs->fetch_assoc() ):
 							?>
-						<a class="dropdown-item" href="indexpro.php?SP=<?= $row[" CatID "]?>">
+						<a class="dropdown-item" href="indexpro.php?SP=<?= $row["CatID"]?>">
 							<?= $row["CatName"] ?>
 						</a>
 						<?php
@@ -118,7 +118,7 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 						$rs = load( $sql );
 						while ( $row = $rs->fetch_assoc() ):
 							?>
-						<a class="list-group-item" href="indexpro.php?SP=<?= $row[" CatID "]?>">
+						<a class="list-group-item" href="indexpro.php?SP=<?= $row["CatID"]?>">
 							<?= $row["CatName"] ?>
 						</a>
 						<?php
@@ -135,7 +135,7 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 					$rs = load( $sql );
 					while ( $row = $rs->fetch_assoc() ):
 						?>
-					<a class="list-group-item" href="indexpro.php?NSX=<?= $row[" IDNSX "]?>">
+					<a class="list-group-item" href="indexpro.php?NSX=<?= $row["IDNSX"]?>">
 						<?= $row["NameNSX"] ?>
 					</a>
 					<?php
@@ -171,7 +171,7 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 											<input type="checkbox" id="SP<?= $row["CatID"] ?>" name="SP<?= $row["CatID"] ?>">
 										</span>
 								
-									<input class="form-control" type="text" value="<?= $row[" CatName "]?>">
+									<input class="form-control" type="text" value="<?= $row["CatName"]?>">
 
 								</div>
 								<?php
@@ -192,7 +192,7 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 											<input type="checkbox" id="NSX<?= $row["IDNSX"] ?>" name="NSX<?= $row["IDNSX"] ?>">
 										</span>
 								
-									<input class="form-control" type="text" value="<?= $row[" NameNSX "]?>">
+									<input class="form-control" type="text" value="<?= $row["NameNSX"]?>">
 
 								</div>
 								<?php
