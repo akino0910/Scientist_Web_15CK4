@@ -19,7 +19,7 @@
 					$o_UserID = $_SESSION["current_user"]->f_ID;
 					$o_OrderDate = strtotime("+7 hours", time());
 					$str_OrderDate = date("Y-m-d H:i:s", $o_OrderDate);
-					$sql = "insert into orders(OrderDate, UserID, Total) values('$str_OrderDate', $o_UserID, $o_Total)";
+					$sql = "insert into orders(OrderDate, UserID, Total, TrangThai) values('$str_OrderDate', $o_UserID, $o_Total, 'Chưa giao')";
 					write($sql);
 					$sqlnew = "select max(OrderID) from orders";
 					$rs = load($sqlnew);
@@ -34,9 +34,13 @@
 						$amount = $q * $price;
 						$d_sql = "insert into orderdetails(OrderID, ProID, Quantity, Price, Amount) values($o_ID, $proId, $q, $price, $amount)";
 						write($d_sql);
+						$qban = $row["SLB"] + $q;
+						$qton = $row["Quantity"] - $q;
+						$sqlnew = "update products set Quantity = $qton, SLB = $qban where ProID = $proId";
+						write($sqlnew);
 					}
 					$_SESSION["cart"] = array();
-					
+					echo "<div class='alert alert-success text-center' role='alert'><strong>Thanh toán!</strong> Thanh toán thành công</div>";
 				}
 				if($_SESSION["ttdn"] == 0)
 				{

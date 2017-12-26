@@ -5,12 +5,12 @@ if(!isset($_GET["Pro"]))
 {
 	header('location: index.php');
 }
-$sql = "select * from products";
-$nr = findnumrow($sql);
 if(isset($_GET['Pro']))
 {
 	$ProID = $_GET['Pro'];
-	if($ProID <= 0 || $ProID >$nr)
+	$sql = "select * from products where ProID = $ProID";
+	$rs = load($sql)->fetch_assoc();
+	if($rs == null)
 	{
 		header('location: index.php');
 		return;

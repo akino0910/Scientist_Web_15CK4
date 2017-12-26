@@ -10,7 +10,7 @@ $(document).ready(function(){
 	$.ajaxSetup({async: false});
 	
 	//Email
-	$("#regUsername").on("input", function() {
+	$("#userid").on("input", function() {
 		if($(this).val().search(' ') !== -1){
 			$("#errsername").html("Các ký tự sau được phép sử dụng cho mật khẩu của bạn: a-z, A-Z, 0-9 và dấu chấm câu thông thường.");
 			$("#errUsername").show();
@@ -19,7 +19,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#regEmail").blur(function(){
+	$("#Email").blur(function(){
 		if ($(this).val().length === 0)
 		{
 			$("#errEmail").show();
@@ -34,7 +34,7 @@ $(document).ready(function(){
 	});
 	
 	//Username
-	$("#regUsername").on("input", function() {
+	$("#userid").on("input", function() {
 		if($(this).val().search(' ') !== -1){
 			$("#errUsername").html("Vui lòng chỉ sử dụng chữ cái (a-z), số và dấu chấm.");
 			$("#errUsername").show();
@@ -44,7 +44,7 @@ $(document).ready(function(){
 	});
 	
 	
-	$("#regUsername").blur(function(){
+	$("#userid").blur(function(){
 		if ($(this).val().length === 0)
 		{
 			$("#errUsername").show();
@@ -53,12 +53,12 @@ $(document).ready(function(){
 			url:"views/user/checkUsername.php",
 			type:"POST",
 			data:{
-				username: $("#regUsername").val()
+				username: $("#userid").val()
 			},
 			success: function(data){
 				if (data == 1){
 					var txt1 = "Tên người dùng ";
-					var txt2 = $("#regUsername").val();
+					var txt2 = $("#userid").val();
 					var txt3 = " đã tồn tại!!!";
 					var msg = txt1.concat("<strong>", txt2, "</strong>", txt3);
 					$("#errUsername").html(msg);
@@ -77,9 +77,9 @@ $(document).ready(function(){
 	});
 	
 	//Password
-	$("#regPass").on("input", function() {
-		if($("#regRePass").val() != ""){
-			$("#regRePass").val(null);
+	$("#password").on("input", function() {
+		if($("#reenterpassword").val() != ""){
+			$("#reenterpassword").val(null);
 			$("#errRePass").hide();
 		}
 		if($(this).val().search(' ') !== -1){
@@ -90,7 +90,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#regPass").blur(function(){
+	$("#password").blur(function(){
 		if ($(this).val().length === 0)
 		{
 			$("#errPass").show();
@@ -106,7 +106,7 @@ $(document).ready(function(){
 	});
 	
 	//RePassword
-	$("#regRePass").on("input", function() {
+	$("#reenterpassword").on("input", function() {
 		if($(this).val().search(' ') !== -1){
 			$("#errRePass").html("Các ký tự sau được phép sử dụng cho mật khẩu của bạn: a-z, A-Z, 0-9 và dấu chấm câu thông thường.");
 			$("#errRePass").show();
@@ -115,12 +115,12 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#regRePass").blur(function(){
+	$("#reenterpassword").blur(function(){
 		if ($(this).val().length === 0)
 		{
 			$("#errRePass").html("Bạn không được để trống trường này.");
 			$("#errRePass").show();
-		} else if($(this).val() !== $("#regPass").val()) {
+		} else if($(this).val() !== $("#password").val()) {
 			$("#errRePass").html("<strong>Thiệt tình!</strong> Gõ lại mật khẩu mà cũng sai nữa là sao.");
 			$("#errRePass").show();
 		} else {
@@ -129,11 +129,11 @@ $(document).ready(function(){
 	});
 	
 	//Form
-	$("#btnReg").click(function(){
-		var email = $("#regEmail").val();
-		var username = $("#regUsername").val();
-		var pass = $("#regPass").val();
-		var repass = $("#regRePass").val();
+	$("#signup").click(function(){
+		var email = $("#Email").val();
+		var username = $("#userid").val();
+		var pass = $("#password").val();
+		var repass = $("#reenterpassword").val();
 		var response = grecaptcha.getResponse();
 		var secret = "6Ld9zjgUAAAAAJ-R6dUh3nHr8Sb324a7168xhpXG";
 		
@@ -170,7 +170,7 @@ $(document).ready(function(){
 			success: function(data){
 				if (data === '1'){
 					var txt1 = "Tên người dùng ";
-					var txt2 = $("#regUsername").val();
+					var txt2 = $("#userid").val();
 					var txt3 = " đã tồn tại rồi nhen!!!";
 					var msg = txt1.concat("<strong>", txt2, "</strong>", txt3);
 					$("#errUsername").html(msg);
