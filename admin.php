@@ -81,7 +81,11 @@ if(isset($_GET["hanhdong"]))
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<<<<<<< HEAD
 			<a class="navbar-brand" href="admin.php"><i class="fa fa-camera"></i> ProCam</a>
+=======
+			<a class="navbar-brand" href="index.php"><i class="fa fa-camera"></i> ProCam</a>
+>>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 			<?php
 			if($_SESSION["admin"] == 1)
 				{
@@ -113,6 +117,7 @@ if(isset($_GET["hanhdong"]))
 							<h3 class="panel-title">Quyền Admin</h3>
 						</div>
 						<div class="list-group">
+<<<<<<< HEAD
 							<a class="list-group-item" href="updateadmin.php">Thêm sản phẩm</a>
 								<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Quản lý danh mục và NSX
@@ -121,6 +126,8 @@ if(isset($_GET["hanhdong"]))
 									<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
 									<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
 								</div>
+=======
+>>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 							<a class="list-group-item" href="?quyen=1">Quản lý sản phẩm</a>
 							<a class="list-group-item" href="?quyen=0">Quản lý đơn hàng</a>
 						</div>
@@ -263,11 +270,18 @@ if(isset($_GET["hanhdong"]))
 													<?php
 													$page = $_GET["quyen"];
 													$current_page = $page;
+<<<<<<< HEAD
 													$limit = 10;
 													$off = ($page - 1)*$limit;
 													$sql = "select * from products";
 													$nr = findnumrow($sql);
 														$trang = ceil($nr/$limit);
+=======
+													var_dump($page);
+													$limit = 2;
+													$off = ($page - 1)*$limit;
+													var_dump($off);
+>>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 													$sql = "select * from products ORDER BY ProID DESC LIMIT $limit OFFSET $off";
 													$rs = load($sql);
 													$dem=1;
@@ -292,6 +306,7 @@ if(isset($_GET["hanhdong"]))
 														?>
 														<td><?= $rownew["NameNSX"] ?></td>
 														<td><?= $row["Quantity"] ?></td>
+<<<<<<< HEAD
 														<td>
 															<form action="updateadmin.php" method="post">
 																<input class="form-control" name="ProID" id="ProID" type="hidden" value="<?= $row["ProID"] ?>">
@@ -302,6 +317,8 @@ if(isset($_GET["hanhdong"]))
 																<button class="btn btn-danger" name="remove" id="remove"><li class="fa fa-trash"></li></button>
 															</form>
 														</td>
+=======
+>>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 													</tr>
 													<?php
 													$dem++;
@@ -311,6 +328,7 @@ if(isset($_GET["hanhdong"]))
 											</table>
 											<nav aria-label="Page navigation example">
 												<ul class="pagination">
+<<<<<<< HEAD
 													<?php
 													if($current_page > 1){
 													?>
@@ -378,6 +396,42 @@ if(isset($_GET["hanhdong"]))
 													<?php
 													}
 													?>
+=======
+													<li class="page-item"><a class="page-link" href="?quyen=<?= $current_page -1 ?>">Previous</a></li>
+													<li class="page-item"><a class="page-link" href="?quyen=1">1</a></li>
+													<?php
+													$sql = "select * from products";
+													$nr = findnumrow($sql);
+													$page = ceil($nr/$limit);
+													if($page<=6)
+													{
+														for ($i=2; $i < $page; $i++) {
+														?>
+														<li class="page-item"><a class="page-link" href="?quyen=<?= $i ?>"><?= $i ?></a></li>
+														<?php
+														}
+													}
+													else
+													{
+														if($current_page < 4)
+														{
+															$current_page=4;
+														}
+														if($current_page > $page - 3)
+														{
+															$current_page = $page - 3;
+														}
+														for ($i=$current_page-2; $i <= $current_page + 2; $i++) {
+
+													?>
+														<li class="page-item"><a class="page-link" href="?quyen=<?= $i ?>"><?= $i ?></a></li>
+													<?php 
+														}
+													}
+													?>
+													<li class="page-item"><a class="page-link" href="?quyen=<?= $page ?>"><?= $page ?></a></li>
+													<li class="page-item"><a class="page-link" href="?quyen=<?= $current_page +1 ?>">Next</a></li>
+>>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 												</ul>
 											</nav>
 										</div>
@@ -437,11 +491,15 @@ if(isset($_GET["hanhdong"]))
 													?>
 												</tbody>
 											</table>
+<<<<<<< HEAD
 											<div class="col-sm-6">
 												<a class="btn btn-primary" href="admin.php?quyen=0" role="button"> Quay lại</a>
 											</div>
 										</div>
 										
+=======
+										</div>
+>>>>>>> c262764f6966d6612d4c95fbbaef832752863c3e
 									</div>
 								</div>
 							</div>
