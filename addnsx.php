@@ -1,16 +1,21 @@
 <?php
 require_once './lib/db.php';
+session_start();
+if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
+{
+	$_SESSION["admin"] = 0;
+	header("Location: admin.php");
+}
 if(isset($_POST["Remove"]))
 {
 	if(isset($_POST["IDNSX"]))
 	{
-
 		$Cid = $_POST["IDNSX"];
-		var_dump($Cid);
 		$sql = "delete from nsx where IDNSX = $Cid";
 		write($sql);
 	}
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header( "refresh:3;url=xulynsx.php" ); 
+  	echo "<div class='alert alert-success text-center' role='alert'><strong>Xóa thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
 }
 if(isset($_POST["OK"]))
 {
@@ -37,7 +42,8 @@ if(isset($_POST["OK"]))
 		$sql = "update nsx set NameNSX = '$NAME' where IDNSX = $ID";
 	}
 	write($sql);
-	header('Location: xulynsx.php');
+	header( "refresh:3;url=xulynsx.php" ); 
+  	echo "<div class='alert alert-success text-center' role='alert'><strong>Xóa thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
 }
 ?>
 <!DOCTYPE html>
@@ -53,7 +59,6 @@ if(isset($_POST["OK"]))
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="admin.php"><i class="fa fa-camera"></i> ProCam</a>
 			<?php
-			session_start();
 			if($_SESSION["admin"] == 1)
 				{
 			?>
@@ -63,7 +68,7 @@ if(isset($_POST["OK"]))
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
 						<li class="nav-item dropdown">
-							<a class="nav-link" href="?Thoat" role="button">
+							<a class="nav-link" href="admin.php?Thoat" role="button">
 								Thoát
 							</a>
 						</li>

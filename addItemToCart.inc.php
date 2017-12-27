@@ -24,3 +24,7 @@ if (isset($_POST["btnAddItemToCart"])) {
 	    header("location: $url");
 	}
 }
+else
+{
+	header("location: index.php");
+}

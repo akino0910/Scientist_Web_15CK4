@@ -1,5 +1,11 @@
 <?php
 require_once './lib/db.php';
+session_start();
+if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
+{
+	$_SESSION["admin"] = 0;
+	header("Location: admin.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +20,6 @@ require_once './lib/db.php';
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="admin.php"><i class="fa fa-camera"></i> ProCam</a>
 			<?php
-			session_start();
 			if($_SESSION["admin"] == 1)
 				{
 			?>
@@ -24,7 +29,7 @@ require_once './lib/db.php';
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
 						<li class="nav-item dropdown">
-							<a class="nav-link" href="?Thoat" role="button">
+							<a class="nav-link" href="admin.php?Thoat" role="button">
 								Thoát
 							</a>
 						</li>
@@ -68,7 +73,7 @@ require_once './lib/db.php';
 									<tr>
 										<th>#</th>
 										<th>Tên danh mục</th>
-										<th class="text-right">Xóa</th>
+										<th class="text-right"></th>
 									</tr>
 								</thead>
 								<tbody>

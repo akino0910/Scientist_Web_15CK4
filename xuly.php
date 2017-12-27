@@ -20,6 +20,7 @@
 				unset($_SESSION["ttdn"]);
 				unset($_SESSION["current_user"]);
 				}
+			setcookie("errsignin", 1, time() + 3600);
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 			return;
 			}
@@ -30,11 +31,11 @@
 			}
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else {
+			setcookie("errsignin", 1, time() + 3600);
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
-			// sinh viên xử lý show_alert
 		}
 	}
-	if(isset($_POST["signup"]))
+	elseif(isset($_POST["signup"]))
 	{
 		if(!isset($_POST["g-recaptcha-response"]) || $_POST["g-recaptcha-response"] == "")
 		{
@@ -53,7 +54,7 @@
 		write($sql);
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
-	if(isset($_GET["Thoat"]))
+	elseif(isset($_GET["Thoat"]))
 	{
 		if (isset($_SESSION["ttdn"])) {
 			unset($_SESSION["ttdn"]);
@@ -62,5 +63,9 @@
 			setcookie("auth_user_id", "", time() - 3600);
 		}
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
+	}
+	else
+	{
+		header("location: index.php");
 	}
 ?>

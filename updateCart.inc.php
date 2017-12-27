@@ -17,3 +17,7 @@ if (isset($_POST["txtCmd"])) {
 	    header("location: $url");
 	}
 }
+else
+{
+	header("location: index.php");
+}

@@ -1,5 +1,11 @@
 <?php
 require_once './lib/db.php';
+session_start();
+if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
+{
+	$_SESSION["admin"] = 0;
+	header("Location: admin.php");
+}
 if (isset($_POST["btnSave"])) {
 	$name = $_POST["txtProName"];
 	$price = $_POST["txtPrice"];
@@ -31,9 +37,10 @@ if (isset($_POST["btnSave"])) {
 		}
 		$tmp_name = $f["tmp_name"];
 		$name = $f["name"];
-		$destination = "img/product/$id/1.png";
+		$destination = "img/product/$id/1.png";	
 		move_uploaded_file($tmp_name, $destination);
 	}
+	echo "<div class='alert alert-success text-center' role='alert'><strong>Thành công!</strong> Đã cập nhật dữ liệu!</div>";
 }
 ?>
 <!DOCTYPE html>
@@ -49,7 +56,6 @@ if (isset($_POST["btnSave"])) {
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="admin.php"><i class="fa fa-camera"></i> ProCam</a>
 			<?php
-			session_start();
 			if($_SESSION["admin"] == 1)
 				{
 			?>
@@ -59,7 +65,7 @@ if (isset($_POST["btnSave"])) {
 				<ul class="navbar-nav mr-0">
 					<li class="nav-item">
 						<li class="nav-item dropdown">
-							<a class="nav-link" href="?Thoat" role="button">
+							<a class="nav-link" href="admin.php?Thoat" role="button">
 								Thoát
 							</a>
 						</li>

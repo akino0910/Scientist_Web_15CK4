@@ -8,6 +8,11 @@ if (isset($_SESSION["ttdn"]))
 	// xoá cookie auth_user_id
 	setcookie("auth_user_id", "", time() - 3600);
 }
+if(isset($_COOKIE["errsignin"]))
+{
+	echo "<script> alert('Sai tên đăng nhập hoặc mật khẩu!'); </script>";
+	setcookie("errsignin", 1, time() - 3600);
+}
 if(!isset($_SESSION["admin"]))
 {
 	$_SESSION["admin"] = 0;
@@ -37,6 +42,7 @@ if (isset($_POST["signin"])) {
 				unset($_SESSION["admin"]);
 				unset($_SESSION["current_admin"]);
 				}
+			setcookie("errsignin", 1, time() + 3600);
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 			return;
 			}
@@ -47,8 +53,8 @@ if (isset($_POST["signin"])) {
 			}
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else {
+			setcookie("errsignin", 1, time() + 3600);
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
-			// sinh viên xử lý show_alert
 		}
 	}
 if(isset($_GET["Thoat"]))
@@ -68,6 +74,54 @@ if(isset($_GET["hanhdong"]))
 	$sql = "update orders set TrangThai = '$hd' where OrderID = $DH";
 	write($sql);
 	header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+if(isset($_POST["remove"]))
+{
+	$doituongxoa = $_POST["ProID"];
+	$sql = "delete from products where ProID = $doituongxoa";
+	write($sql);
+	if (is_dir("img/product/$doituongxoa")){
+		deleteDir("img/product/$doituongxoa");
+	}
+echo "<div class='alert alert-success text-center' role='alert'><strong>Thành công!</strong> Đã xóa dữ liệu!</div>";
+}
+if(isset($_GET["quyen"]))
+{
+	if($_GET["quyen"]<0)
+	{
+		$_GET["quyen"] = 0;
+	}
+	if($_GET["quyen"]>0)
+	{
+		$limit = 5;
+		$sql = "select * from products";
+		$nr = findnumrow($sql);
+		$trang = ceil($nr/$limit);
+		if($_GET["quyen"] > $trang)
+		{
+			$_GET["quyen"] = $trang;
+		}
+		$page = $_GET["quyen"];
+		$current_page = $page;
+		$off = ($page - 1)*$limit;
+	}
+}
+function deleteDir($dirPath) {
+if (! is_dir($dirPath)) {
+throw new InvalidArgumentException("$dirPath must be a directory");
+}
+if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+$dirPath .= '/';
+}
+$files = glob($dirPath . '*', GLOB_MARK);
+foreach ($files as $file) {
+if (is_dir($file)) {
+self::deleteDir($file);
+} else {
+unlink($file);
+}
+}
+rmdir($dirPath);
 }
 ?>
 <!DOCTYPE html>
@@ -114,13 +168,13 @@ if(isset($_GET["hanhdong"]))
 						</div>
 						<div class="list-group">
 							<a class="list-group-item" href="updateadmin.php">Thêm sản phẩm</a>
-								<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Quản lý danh mục và NSX
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
-									<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
-								</div>
+							<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Quản lý danh mục và NSX
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
+								<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
+							</div>
 							<a class="list-group-item" href="?quyen=1">Quản lý sản phẩm</a>
 							<a class="list-group-item" href="?quyen=0">Quản lý đơn hàng</a>
 						</div>
@@ -261,13 +315,6 @@ if(isset($_GET["hanhdong"]))
 												</thead>
 												<tbody>
 													<?php
-													$page = $_GET["quyen"];
-													$current_page = $page;
-													$limit = 10;
-													$off = ($page - 1)*$limit;
-													$sql = "select * from products";
-													$nr = findnumrow($sql);
-														$trang = ceil($nr/$limit);
 													$sql = "select * from products ORDER BY ProID DESC LIMIT $limit OFFSET $off";
 													$rs = load($sql);
 													$dem=1;
@@ -297,7 +344,7 @@ if(isset($_GET["hanhdong"]))
 																<input class="form-control" name="ProID" id="ProID" type="hidden" value="<?= $row["ProID"] ?>">
 																<button class="btn btn-primary" name="update" id="update"><li class="fa fa-pencil"></li></button>
 															</form>
-															<form action="xulyadmin.php" method="post">
+															<form action="" method="post">
 																<input class="form-control" name="ProID" id="ProID" type="hidden" value="<?= $row["ProID"] ?>">
 																<button class="btn btn-danger" name="remove" id="remove"><li class="fa fa-trash"></li></button>
 															</form>
@@ -312,7 +359,8 @@ if(isset($_GET["hanhdong"]))
 											<nav aria-label="Page navigation example">
 												<ul class="pagination">
 													<?php
-													if($current_page > 1){
+													if($current_page > 1)
+													{
 													?>
 													<li class="page-item"><a class="page-link" href="?quyen=<?= $current_page -1 ?>">Previous</a></li>
 													<?php
@@ -343,26 +391,35 @@ if(isset($_GET["hanhdong"]))
 													?>
 													<li class="page-item"><a class="page-link" href="?quyen=<?= $i ?>"><?= $i ?></a></li>
 													<?php
-													}
-													}
+															}
+														}
 													}
 													else
 													{
 													if($current_page < 4)
 													{
-														$current_page=4;
+														$current_page = 4;
 													}
-													if($current_page > $page - 3)
+													if($current_page > $trang -3)
 													{
-														$current_page = $page - 3;
+														$current_page = $trang -3;
 													}
 													for ($i=$current_page-2; $i <= $current_page + 2; $i++) {
+														if($i == $page)
+														{
+													?>
+													<li class="page-item active"><a class="page-link" href="?quyen=<?= $i ?>"><?= $i ?></a></li>
+													<?php 
+													}
+													else
+													{
 													?>
 													<li class="page-item"><a class="page-link" href="?quyen=<?= $i ?>"><?= $i ?></a></li>
 													<?php
+															}
 														}
 													}
-													if($current_page==$trang){
+													if($page==$trang){
 													?>
 													<li class="page-item active"><a class="page-link" href="?quyen=<?= $trang?>"><?= $trang ?></a></li>
 													<?php
@@ -372,9 +429,9 @@ if(isset($_GET["hanhdong"]))
 													<li class="page-item"><a class="page-link" href="?quyen=<?= $trang?>"><?= $trang ?></a></li>
 													<?php
 													}
-													if($current_page<$trang){
+													if($page<$trang){
 													?>
-													<li class="page-item"><a class="page-link" href="?quyen=<?= $current_page +1 ?>">Next</a></li>
+													<li class="page-item"><a class="page-link" href="?quyen=<?= $page +1 ?>">Next</a></li>
 													<?php
 													}
 													?>

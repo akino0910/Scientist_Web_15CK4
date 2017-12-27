@@ -90,7 +90,7 @@
 				<div class="card cao">
 					<div class="card-body row">
 						<div class="col-sm-6">
-							<img src="img/product/<?= $row["ProID"]?>/1.png" style="height: 60% ">
+							<img src="img/product/<?= $row["ProID"]?>/1.png" style="width: 80% ">
 						</div>
 						<div class="col-sm-6">
 							<h4 class="card-title"><?= $row["ProName"] ?></h4>

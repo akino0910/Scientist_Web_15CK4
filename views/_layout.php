@@ -5,14 +5,19 @@ if ( !isset( $_SESSION[ "ttdn" ] ) ) {
 	$_SESSION[ "ttdn" ] = 0;
 }
 if ( $_SESSION[ "ttdn" ] == 0 ) {
-	if ( isset( $_COOKIE[ "auth_user_id" ] ) ) {
+	if ( isset( $_COOKIE["auth_user_id"] ) ) {
 		// tái tạo session
-		$user_id = $_COOKIE[ "auth_user_id" ];
+		$user_id = $_COOKIE["auth_user_id"];
 		$sql = "select * from users where f_ID = $user_id";
 		$rs = load( $sql );
-		$_SESSION[ "current_user" ] = $rs->fetch_object();
-		$_SESSION[ "ttdn" ] = 1;
+		$_SESSION["current_user"] = $rs->fetch_object();
+		$_SESSION["ttdn"] = 1;
 	}
+}
+if(isset($_COOKIE["errsignin"]))
+{
+	echo "<script> alert('Sai tên đăng nhập hoặc mật khẩu!'); </script>";
+	setcookie("errsignin", 1, time() - 3600);
 }
 ?>
 <!DOCTYPE html>
@@ -21,7 +26,6 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 <head>
 	<meta charset="UTF-8">
 	<title>ProCam</title>
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" > -->
 	<link rel="stylesheet" type="text/css" href="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
 	<link rel="stylesheet" href="assets/bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -56,9 +60,6 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 						endwhile;
 						?>
 					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Hỗ trợ</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#" data-toggle="modal" data-target="#myCont">Liên hệ</a>
@@ -154,7 +155,7 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 						<div class="dam marbotle">Tìm theo giá: </div>
 						<div>
 							<!-- <input class="form-control" type="number" id="nhonhat" name="nhonhat" value="0">
-								<input class="form-control" type="number" id="lonnhat" name="lonnhat" value="1000000000"> -->
+							<input class="form-control" type="number" id="lonnhat" name="lonnhat" value="1000000000"> -->
 							<input type="text" class="form-control" value="1" name="nhonhat" id="nhonhat">
 							<input type="text" class="form-control" value="1000000000" name="lonnhat" id="lonnhat">
 						</div>
@@ -201,7 +202,7 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 							</div>
 						</div>
 						<div class="martop col-sm-6">
-							<button class="btn btn-success my-2 my-sm-0" type="submit">Lọc</button>
+							<button class="btn btn-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i> Lọc</button>
 						</div>
 					</form>
 				</div>
@@ -298,9 +299,6 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 				</div>
 			</div>
 		</div>
-		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script> -->
 		<script src="assets/jquery-3.2.1.min.js"></script>
 		<script src="assets/popper.min.js"></script>
 		<script src="assets/bootstrap4.min.js"></script>
@@ -312,6 +310,8 @@ if ( $_SESSION[ "ttdn" ] == 0 ) {
 				max: <?= $row["Quantity"] ?>
 			});
 		});
+		</script>
+		<script type="text/javascript">
 		$(function () {
 			$('#nhonhat').TouchSpin({
 				min: 0,

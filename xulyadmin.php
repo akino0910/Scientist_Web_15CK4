@@ -1,5 +1,12 @@
 <?php
 require_once "./lib/db.php";
+session_start();
+if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
+{
+	$_SESSION["admin"] = 0;
+	header("Location: admin.php");
+	return;
+}
 if(isset($_POST["remove"]))
 {
 	$doituongxoa = $_POST["ProID"];
