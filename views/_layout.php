@@ -113,19 +113,7 @@ if(isset($_COOKIE["errsignin"]))
 					<div class="borderdiv">
 						<h3 class="panel-title">Danh mục</h3>
 					</div>
-					<div class="list-group">
-						<?php
-						$sql = "select * from categories";
-						$rs = load( $sql );
-						while ( $row = $rs->fetch_assoc() ):
-							?>
-						<a class="list-group-item" href="indexpro.php?SP=<?= $row["CatID"]?>">
-							<?= $row["CatName"] ?>
-						</a>
-						<?php
-						endwhile;
-						?>
-					</div>
+					<div class="list-group" id="nav-DanhMuc"></div>
 				</div>
 				<div class="panel panel-default">
 					<div class="borderdiv">
@@ -207,7 +195,7 @@ if(isset($_COOKIE["errsignin"]))
 					</form>
 				</div>
 			</div>
-			<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+			<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="cardDanhMuc">
 				<?php include_once $page_body_file; ?>
 			</div>
 		</div>
@@ -344,5 +332,88 @@ if(isset($_COOKIE["errsignin"]))
 			});
 		</script>
 		<script src="views/user/userXL.js"></script>
+		<script src="views/phanTrang/phanTrang.js"></script>
+		<script>
+			var limit = 10;
+			var page = 1, current_page = 1;
+			var idDM = 1;
+			$(document).ready(function(){
+				load_DanhMuc();
+				function load_DanhMuc(){
+					$.ajax({
+						url: "views/phanTrang/danhMuc.php",
+						success: function(data){
+							$("#nav-DanhMuc").html(data);
+						}
+					})
+				}
+				
+				function load_Card(idDanhMuc, page, limit){
+					$.ajax({
+						url: "views/phanTrang/card.php",
+						type: "GET",
+						data: {idDanhMuc: idDanhMuc, page: page, limit: limit},
+						success: function(data){
+							$("#cardDanhMuc").html(data);
+						}
+					})
+				}
+				
+				function load_FullItem(idPro){
+					$.ajax({
+						url: "views/phanTrang/fullItem.php",
+						type: "GET",
+						data: {ProID: idPro},
+						success: function(data){
+							$("#cardDanhMuc").html(data);						
+						}
+					})
+				}
+				
+				$(document).on('click', '.btnnavDanhMuc', function () {
+					var idDanhMuc = $(this).attr("id");
+					idDM = idDanhMuc;
+					load_Card(idDanhMuc, 1, limit);
+					pagination(idDanhMuc, 1, limit);
+				});
+				
+				$(document).on('click', '.btnFullItem', function () {
+					var idPro = $(this).attr("id");
+					load_FullItem(idPro);
+				});
+				
+
+				function pagination(idDanhMuc ,page, limit){
+					$.ajax({
+						url: "views/phanTrang/phanTrang.php",
+						type: "GET",
+						data: {idDanhMuc: idDanhMuc, page: page, limit: limit},
+						success: function(data){
+							$("#paginationNumber").html(data);
+						}
+					})
+				}
+				
+				
+				
+				$(document).on('click', '.page-link', function () {
+				page = $(this).attr("id");
+
+				if (page == 'nextPage') {
+					load_Card(idDM, parseInt(current_page + 1), limit);
+					pagination(idDM, parseInt(current_page + 1), limit);
+					current_page++;
+				} else if (page == 'prevPage') {
+					load_Card(idDM, parseInt(current_page - 1), limit);
+					pagination(idDM, parseInt(current_page - 1), limit);
+					current_page--;
+				} else {
+					load_Card(idDM, parseInt(page), limit);
+					pagination(idDM, parseInt(page), limit);
+					current_page = page;
+				}
+			});
+			})
+		</script>
 	</body>
 </html>
