@@ -44,6 +44,9 @@ else
 }
 ?>
 <div class="panel panel-default">
+	<div class="borderdiv">
+		<h3 class="panel-title">Sản phẩm</h3>
+	</div>
 	<div class="panel-body">
 		<div class="row">
 			<?php

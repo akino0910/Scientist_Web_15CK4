@@ -119,17 +119,7 @@ if(isset($_COOKIE["errsignin"]))
 					<div class="borderdiv">
 						<h3 class="panel-title">Nhà sản xuất</h3>
 					</div>
-					<?php
-					$sql = "select * from NSX";
-					$rs = load( $sql );
-					while ( $row = $rs->fetch_assoc() ):
-						?>
-					<a class="list-group-item" href="indexpro.php?NSX=<?= $row["IDNSX"]?>">
-						<?= $row["NameNSX"] ?>
-					</a>
-					<?php
-					endwhile;
-					?>
+					<div class="list-group" id="nav-NSX"></div>
 				</div>
 				<div class="panel panel-default">
 					<div class="borderdiv">
@@ -293,14 +283,6 @@ if(isset($_COOKIE["errsignin"]))
 		<script src="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 		<script type="text/javascript">
 		$(function () {
-			$('#txtQuantity').TouchSpin({
-				min: 1,
-				max: <?= $row["Quantity"] ?>
-			});
-		});
-		</script>
-		<script type="text/javascript">
-		$(function () {
 			$('#nhonhat').TouchSpin({
 				min: 0,
                 max: 1000000000,
@@ -339,6 +321,8 @@ if(isset($_COOKIE["errsignin"]))
 			var idDM = 1;
 			$(document).ready(function(){
 				load_DanhMuc();
+				load_NSX();
+				
 				function load_DanhMuc(){
 					$.ajax({
 						url: "views/phanTrang/danhMuc.php",
@@ -348,6 +332,14 @@ if(isset($_COOKIE["errsignin"]))
 					})
 				}
 				
+				function load_NSX(){
+					$.ajax({
+						url: "views/phanTrang/NSX.php",
+						success: function(data){
+							$("#nav-NSX").html(data);
+						}
+					})
+				}
 				function load_Card(idDanhMuc, page, limit){
 					$.ajax({
 						url: "views/phanTrang/card.php",
@@ -365,7 +357,7 @@ if(isset($_COOKIE["errsignin"]))
 						type: "GET",
 						data: {ProID: idPro},
 						success: function(data){
-							$("#cardDanhMuc").html(data);						
+							$("#cardDanhMuc").html(data);
 						}
 					})
 				}
@@ -380,6 +372,7 @@ if(isset($_COOKIE["errsignin"]))
 				$(document).on('click', '.btnFullItem', function () {
 					var idPro = $(this).attr("id");
 					load_FullItem(idPro);
+					QuantityTP();
 				});
 				
 

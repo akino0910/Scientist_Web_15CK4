@@ -13,7 +13,13 @@
 	$rsnew = load($sqlnew);
 	$kqnew = $rsnew->fetch_assoc();
 	$slanh = $kqnew["SLAnh"];
+
+	//Lấy số lượng hàng trong kho
+	$Quan = $row["Quantity"];
 ?>
+<div class="borderdiv">
+	<h3 class="panel-title">Chi tiết sản phẩm</h3>
+</div>
 <div class="row martop">
 	<div class="col-sm-4">
 		<div id="demo" class="carousel slide" data-ride="carousel">
@@ -67,7 +73,7 @@
 			<form name="faddpro" action="addItemToCart.inc.php" method="post">
 				<div>
 					<input type="hidden" name="txtProID" value="<?= $_GET["ProID"] ?>">
-					<input type="text" class="form-control" value="1" name="txtQuantity" id="txtQuantity">
+					<input type="text" class="form-control" value="1" name="txtQuantity" id="txtQuantity" quan="<?= $Quan ?>">
 				</div>
 				<div class="martop">
 					<button class="btn btn-success" type="submit" name="btnAddItemToCart">
