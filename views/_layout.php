@@ -362,6 +362,14 @@ if(isset($_COOKIE["errsignin"]))
 					})
 				}
 				
+				function QuantityTP(idPro, Quantity){
+					var quan = $('#txtQuantity').attr("quan");
+					$("input[name='txtQuantity']").TouchSpin({
+						min: 1,
+						max: quan
+					 });
+				}
+				
 				$(document).on('click', '.btnnavDanhMuc', function () {
 					var idDanhMuc = $(this).attr("id");
 					idDM = idDanhMuc;
