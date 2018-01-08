@@ -146,12 +146,12 @@ if(isset($_COOKIE["errsignin"]))
 								while ( $row = $rs->fetch_assoc() ):
 									?>
 								<div class="input-group">
-									<span class="input-group-addon">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
 											<input type="checkbox" id="SP<?= $row["CatID"] ?>" name="SP<?= $row["CatID"] ?>">
-										</span>
-								
+										</div>
+									</div>
 									<input class="form-control" type="text" value="<?= $row["CatName"]?>">
-
 								</div>
 								<?php
 								endwhile;
@@ -167,12 +167,12 @@ if(isset($_COOKIE["errsignin"]))
 								while ( $row = $rs->fetch_assoc() ):
 									?>
 								<div class="input-group">
-									<span class="input-group-addon">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
 											<input type="checkbox" id="NSX<?= $row["IDNSX"] ?>" name="NSX<?= $row["IDNSX"] ?>">
-										</span>
-								
+										</div>
+									</div>
 									<input class="form-control" type="text" value="<?= $row["NameNSX"]?>">
-
 								</div>
 								<?php
 								endwhile;
@@ -364,7 +364,7 @@ if(isset($_COOKIE["errsignin"]))
 				
 				function QuantityTP(idPro, Quantity){
 					var quan = $('#txtQuantity').attr("quan");
-					$("input[name='txtQuantity']").TouchSpin({
+					$('#txtQuantity').TouchSpin({
 						min: 1,
 						max: quan
 					 });

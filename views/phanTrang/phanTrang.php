@@ -12,6 +12,7 @@ isset($_GET["limit"]) ? $limit = $_GET["limit"] : $limit = 10;
 $sql = "SELECT * FROM products WHERE CatID = $idDanhMuc";  
 $row_cnt = $db->numRows($sql);
 $num_page = ceil($row_cnt / $limit);
+if($num_page != 1):
 ?>
 <ul class="pagination">
 	<li class="page-item <?php if($page == 1) echo 'disabled'?>" id="Prev">
@@ -33,3 +34,4 @@ for($i = 1; $i <= $num_page; $i++ ):
 		  </a>
 	</li>
 </ul>
+<?php endif; ?>

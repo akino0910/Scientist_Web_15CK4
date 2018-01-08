@@ -24,8 +24,9 @@ a{
 }
 .marbotle
 {
-  margin-left: 20px;
-  margin-bottom: 20px;
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 .martop
 {
@@ -42,6 +43,7 @@ a{
 .cao
 {
 	height: 300px;
+	margin-bottom: .75rem;
 }
 .modal {
   text-align: center;
