@@ -1,9 +1,9 @@
 <?php
 	require_once "./lib/db.php";
-	$sql = "select * from categories";
-	$nrc = findnumrow($sql);
-	$sql = "select * from nsx";
-	$nrsx = findnumrow($sql);
+	$sql = "select max(CatID) from categories";
+	$nrc = load($sql)->fetch_assoc()['max(CatID)'];
+	$sql = "select max(IDNSX) from nsx";
+	$nrsx = load($sql)->fetch_assoc()['max(IDNSX)'];
 	if(isset($_POST["Ten"]))
 	{
 		$Ten = $_POST["Ten"];
@@ -59,16 +59,8 @@
 			$sql = $sql . " and (" . $str2 .") ";
 		}
 	}
-	$rs = load($sql);
 	$nr = findnumrow($sql);
-	$limit = 8;
-	$page = ceil($nr / $limit);
-
-	if(isset($_GET["page"]))
-	{
-		echo "$sql";
-		return;
-	}
+	$rs = load($sql);
 ?>
 <div class="panel panel-default">
 	<div class="borderdiv">
@@ -79,7 +71,6 @@
 			<?php
 			if($nr == 0)
 			{
-				
 				echo "</br> Không có sản phẩm theo yêu cầu!";
 			}
 			else
@@ -104,8 +95,8 @@
 							<button class="btn btn-success" type="submit" name="btnAddItemToCart">
 							Mua
 							</button>
-						
-						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+							
+							<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
 						</form>
 					</div>
 				</div>

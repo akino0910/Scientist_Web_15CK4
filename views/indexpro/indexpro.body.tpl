@@ -29,11 +29,6 @@ elseif(isset($_GET["NSX"]))
 	}
 	$sql = "select * from products where IDNSX = $NSX";
 }
-else
-{
-	header("Location: index.php");
-	return;
-}
 ?>
 <div class="panel panel-default">
 	<div class="borderdiv">
@@ -42,16 +37,28 @@ else
 	<div class="panel-body">
 		<div class="row">
 			<?php
+				$current_page = $_GET['page'];
+				$nr = findnumrow($sql);
+				$limit = 9;
+				$page = ceil($nr/$limit);
+				if($current_page > $page)
+				{
+					$current_page = $page;
+				}
+				if($current_page < 1)
+				{
+					$current_page = 1;
+				}
+				$off = ($current_page - 1) * $limit;
+				$sql = $sql . " LIMIT $limit OFFSET $off";
 				$rs = load($sql);
-				if($rs ->fetch_assoc() == null)
+				if($nr == 0)
 				{
 					echo "<div> Không có sản phẩm trong mục cần tìm </div>";
 				}
 				else
 				{
-				while($row = $rs -> fetch_assoc()) :
-				
-				
+					while($row = $rs -> fetch_assoc()) :
 			?>
 			<div class="col-sm-4">
 				<div class="card cao">
@@ -83,5 +90,46 @@ else
 			}
 			?>
 		</div>
+		<?php
+		if($nr > $limit){
+		?>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination martop">
+			<?php for ($i=1; $i <= $page; $i++) {
+					if($i == $current_page)
+					{
+						if(isset($_GET['SP']))
+						{
+				?>
+				<li class="page-item active"><a class="page-link" href="indexpro.php?SP=<?= $SP ?>&page=<?= $i ?>"><?= $i ?></a></li>
+				<?php
+						}
+						else{
+				?>
+				<li class="page-item active"><a class="page-link" href="indexpro.php?NSX=<?= $NSX ?>&page=<?= $i ?>"><?= $i ?></a></li>
+				<?php
+						}
+					}
+					else
+					{
+						if(isset($_GET['SP']))
+						{
+				?>
+				<li class="page-item"><a class="page-link" href="indexpro.php?SP=<?= $SP ?>&page=<?= $i ?>"><?= $i ?></a></li>
+				<?php
+						}
+						else{
+				?>
+				<li class="page-item"><a class="page-link" href="indexpro.php?NSX=<?= $NSX ?>&page=<?= $i ?>"><?= $i ?></a></li>
+				<?php
+					}
+				}
+			}
+			?>
+			</ul>
+		</nav>
+		<?php
+		}
+		?>
 	</div>
 </div>
