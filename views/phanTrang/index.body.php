@@ -37,7 +37,7 @@ isset($_GET['limit']) ? $limit = $_GET['limit'] : $limit = 10;
 							<input type="hidden" name="txtQuantity" value="1">
 							<!-- <a href="addItemToCart.inc.php?" class="btn btn-success">Mua</a> -->
 							<button class="btn btn-success" type="submit" name="btnAddItemToCart">Mua</button>
-							<a href="../index/viewpros.php?Pro=<?= $row[$key]['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+							<a href="javascript:void(0);" class="btn btn-secondary btnFullItem" id="<?= $row[$key]["ProID"] ?>">Xem chi tiết</a>
 						</form>
 					</div>
 				</div>
@@ -126,3 +126,4 @@ isset($_GET['limit']) ? $limit = $_GET['limit'] : $limit = 10;
 		</div>
 	</div>
 </div>
+<div id="paginationNumber"></div>

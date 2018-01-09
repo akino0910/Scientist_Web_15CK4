@@ -8,7 +8,7 @@ $row = $db->runQuery($sql);
 foreach ($row as $key=>$value):
 ?>
 <div>
-	<a class = "list-group-item btnnavDanhMuc" href="javascript:void(0);" id="<?php echo $row[$key]["IDNSX"] ?>">
+	<a class = "list-group-item btnnavNSX" loai='NSX' href="javascript:void(0);" id="<?php echo $row[$key]["IDNSX"] ?>">
 		<?= $row[$key]["NameNSX"] ?>
 	</a>
 </div>

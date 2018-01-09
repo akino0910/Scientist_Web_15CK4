@@ -113,7 +113,7 @@
 					Mua
 					</button>
 					
-					<a href="viewpros.php?Pro=<?= $kq['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+					<a href="javascript:void(0);" class="btn btn-secondary btnFullItem" id="<?= $kq['ProID'] ?>">Xem chi tiết</a>
 				</form>
 			</div>
 		</div>
@@ -151,7 +151,7 @@
 					Mua
 					</button>
 					
-					<a href="viewpros.php?Pro=<?= $kq['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+					<a href="javascript:void(0);" class="btn btn-secondary btnFullItem" id="<?= $kq['ProID'] ?>>Xem chi tiết</a>
 				</form>
 			</div>
 		</div>

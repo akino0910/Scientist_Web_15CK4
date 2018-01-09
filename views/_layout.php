@@ -33,8 +33,8 @@ if(isset($_COOKIE["errsignin"]))
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
-<body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<a class="navbar-brand" href="index.php"><i class="fa fa-camera"></i> ProCam</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -68,7 +68,8 @@ if(isset($_COOKIE["errsignin"]))
 			</ul>
 			<ul class="navbar-nav mr-0">
 				<li class="nav-item">
-					<a class="nav-link" href="viewcart.php"><i class="fa fa-cart-arrow-down"></i> Giỏ hàng (<?= get_total_items() ?>) </a>
+					<a class="nav-link" href="javascript:void(0);" id="viewcart">
+						<i class="fa fa-cart-arrow-down"></i> Giỏ hàng (<?= get_total_items() ?>) </a>
 				</li>
 			</ul>
 			<?php
@@ -125,7 +126,7 @@ if(isset($_COOKIE["errsignin"]))
 					<div class="borderdiv">
 						<h3 class="panel-title">Lọc tìm sản phẩm</h3>
 					</div>
-					<form name="formsearch" action="search.php" method="post">
+					<form name="formsearch" id="formsearch" action="search.php" method="post">
 						<div class="dam marbotle">Tìm theo tên: </div>
 						<div>
 							<input class="form-control" type="text" id="Ten" name="Ten" placeholder="Nhập tên sản phẩm cần tìm">
@@ -180,7 +181,7 @@ if(isset($_COOKIE["errsignin"]))
 							</div>
 						</div>
 						<div class="martop col-sm-6">
-							<button class="btn btn-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i> Lọc</button>
+							<button class="btn btn-success my-2 my-sm-0" id="btnSearch" type="submit"><i class="fa fa-search"></i> Lọc</button>
 						</div>
 					</form>
 				</div>
@@ -209,14 +210,15 @@ if(isset($_COOKIE["errsignin"]))
 								<form class="form-horizontal" method="post" action="xuly.php" id="loginForm">
 									<input required="" id="userid" name="userid" type="text" class="form-control" placeholder="Tên đăng nhập" class="input-medium" required="">
 									<br>
-									<input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="********" class="input-medium">
+									<input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="Mật khẩu" class="input-medium">
 									<br>
 									<div class="form-check">
 										<label class="form-check-label">
-												<input type="checkbox" name="rememberme" id="rememberme" value="Remember me"> Ghi nhớ tài khoản
-											</label>
-									
+											<input type="checkbox" class="form-check-input" name="rememberme" id="rememberme" value="Remember me">
+											Ghi nhớ tài khoản
+										</label>
 									</div>
+									<br>
 									<button id="signin" name="signin" class="btn btn-success">Đăng nhập</button>
 								</form>
 							</div>
@@ -319,9 +321,35 @@ if(isset($_COOKIE["errsignin"]))
 			var limit = 10;
 			var page = 1, current_page = 1;
 			var idDM = 1;
+			var loai = '';
+			
 			$(document).ready(function(){
 				load_DanhMuc();
 				load_NSX();
+//				load_Main(limit);
+				
+				$('#formsearch').on('submit', function(e){
+					$.ajax({
+						url: "views/phanTrang/search.php",
+						type: 'POST',
+						data: $('#formsearch').serialize(),
+						success: function(data){
+							$("#cardDanhMuc").html(data);
+						}
+					})
+					e.preventDefault();
+				})
+				
+				function load_Main(limit){
+					$.ajax({
+						url: "views/phanTrang/index.body.php",
+						type: "GET",
+						data: {limit: limit},
+						success: function(data){
+							$("#cardDanhMuc").html(data);
+						}
+					})
+				}
 				
 				function load_DanhMuc(){
 					$.ajax({
@@ -340,15 +368,27 @@ if(isset($_COOKIE["errsignin"]))
 						}
 					})
 				}
-				function load_Card(idDanhMuc, page, limit){
-					$.ajax({
+				function load_Card(loai, id, page, limit){
+					if(loai == 'DanhMuc'){
+						$.ajax({
 						url: "views/phanTrang/card.php",
 						type: "GET",
-						data: {idDanhMuc: idDanhMuc, page: page, limit: limit},
+						data: {idDanhMuc: id, page: page, limit: limit},
 						success: function(data){
 							$("#cardDanhMuc").html(data);
 						}
 					})
+					}
+					else if(loai == 'NSX'){
+						$.ajax({
+						url: "views/phanTrang/card.php",
+						type: "GET",
+						data: {idNSX: id, page: page, limit: limit},
+						success: function(data){
+							$("#cardDanhMuc").html(data);
+						}
+					})
+					}
 				}
 				
 				function load_FullItem(idPro){
@@ -370,11 +410,27 @@ if(isset($_COOKIE["errsignin"]))
 					 });
 				}
 				
+				$(document).on('click', '#viewcart', function(){
+					$.ajax({
+						url: "views/phanTrang/viewcart.php",
+						success: function(data){
+							$("#cardDanhMuc").html(data);
+						}
+					})
+				});
+				
 				$(document).on('click', '.btnnavDanhMuc', function () {
-					var idDanhMuc = $(this).attr("id");
-					idDM = idDanhMuc;
-					load_Card(idDanhMuc, 1, limit);
-					pagination(idDanhMuc, 1, limit);
+					var id = $(this).attr("id");
+					var loai = $(this).attr("loai");
+					load_Card(loai, id, 1, limit);
+					pagination(loai, id, 1, limit);
+				});
+				
+				$(document).on('click', '.btnnavNSX', function () {
+					var id = $(this).attr("id");
+					var loai = $(this).attr("loai");
+					load_Card(loai, id, 1, limit);
+					pagination(loai, id, 1, limit);
 				});
 				
 				$(document).on('click', '.btnFullItem', function () {
@@ -384,36 +440,49 @@ if(isset($_COOKIE["errsignin"]))
 				});
 				
 
-				function pagination(idDanhMuc ,page, limit){
-					$.ajax({
+				function pagination(loai, id, page, limit){
+					if(loai == 'DanhMuc'){
+						$.ajax({
 						url: "views/phanTrang/phanTrang.php",
 						type: "GET",
-						data: {idDanhMuc: idDanhMuc, page: page, limit: limit},
+						data: {idDanhMuc: id, page: page, limit: limit},
 						success: function(data){
 							$("#paginationNumber").html(data);
 						}
 					})
+					}
+					if(loai == 'NSX'){
+						$.ajax({
+						url: "views/phanTrang/phanTrang.php",
+						type: "GET",
+						data: {idNSX: id, page: page, limit: limit},
+						success: function(data){
+							$("#paginationNumber").html(data);
+						}
+					})
+					}
 				}
-				
 				
 				
 				$(document).on('click', '.page-link', function () {
-				page = $(this).attr("id");
-
-				if (page == 'nextPage') {
-					load_Card(idDM, parseInt(current_page + 1), limit);
-					pagination(idDM, parseInt(current_page + 1), limit);
-					current_page++;
-				} else if (page == 'prevPage') {
-					load_Card(idDM, parseInt(current_page - 1), limit);
-					pagination(idDM, parseInt(current_page - 1), limit);
-					current_page--;
-				} else {
-					load_Card(idDM, parseInt(page), limit);
-					pagination(idDM, parseInt(page), limit);
-					current_page = page;
-				}
-			});
+					page = $(this).attr("id");
+					loai = $(this).attr("loai");
+					var id = $(this).attr("stt");
+					if (page == 'nextPage') {
+						load_Card(loai, id, parseInt(current_page + 1), limit);
+						pagination(loai, id, parseInt(current_page + 1), limit);
+						current_page++;
+					} else if (page == 'prevPage') {
+						load_Card(loai, id, parseInt(current_page - 1), limit);
+						pagination(loai, id, parseInt(current_page - 1), limit);
+						current_page--;
+					} else {
+						load_Card(loai, id, parseInt(page), limit);
+						pagination(loai, id, parseInt(page), limit);
+						current_page = page;
+					}
+				});
+				
 			})
 		</script>
 	</body>

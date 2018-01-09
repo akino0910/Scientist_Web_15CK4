@@ -63,3 +63,6 @@ a{
   text-align: left;
   vertical-align: middle;
 }
+body{
+	position: relative;
+}
