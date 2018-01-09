@@ -33,8 +33,8 @@ if(isset($_COOKIE["errsignin"]))
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="index.php"><i class="fa fa-camera"></i> ProCam</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -68,8 +68,7 @@ if(isset($_COOKIE["errsignin"]))
 			</ul>
 			<ul class="navbar-nav mr-0">
 				<li class="nav-item">
-					<a class="nav-link" href="javascript:void(0);" id="viewcart">
-						<i class="fa fa-cart-arrow-down"></i> Giỏ hàng (<?= get_total_items() ?>) </a>
+					<a class="nav-link" href="viewcart.php"><i class="fa fa-cart-arrow-down"></i> Giỏ hàng (<?= get_total_items() ?>) </a>
 				</li>
 			</ul>
 			<?php
@@ -114,19 +113,41 @@ if(isset($_COOKIE["errsignin"]))
 					<div class="borderdiv">
 						<h3 class="panel-title">Danh mục</h3>
 					</div>
-					<div class="list-group" id="nav-DanhMuc"></div>
+					<div class="list-group">
+						<?php
+						$sql = "select * from categories";
+						$rs = load( $sql );
+						while ( $row = $rs->fetch_assoc() ):
+							?>
+						<a class="list-group-item" href="indexpro.php?SP=<?= $row["CatID"]?>">
+							<?= $row["CatName"] ?>
+						</a>
+						<?php
+						endwhile;
+						?>
+					</div>
 				</div>
 				<div class="panel panel-default">
 					<div class="borderdiv">
 						<h3 class="panel-title">Nhà sản xuất</h3>
 					</div>
-					<div class="list-group" id="nav-NSX"></div>
+					<?php
+					$sql = "select * from NSX";
+					$rs = load( $sql );
+					while ( $row = $rs->fetch_assoc() ):
+						?>
+					<a class="list-group-item" href="indexpro.php?NSX=<?= $row["IDNSX"]?>">
+						<?= $row["NameNSX"] ?>
+					</a>
+					<?php
+					endwhile;
+					?>
 				</div>
 				<div class="panel panel-default">
 					<div class="borderdiv">
 						<h3 class="panel-title">Lọc tìm sản phẩm</h3>
 					</div>
-					<form name="formsearch" id="formsearch" action="search.php" method="post">
+					<form name="formsearch" action="search.php" method="post">
 						<div class="dam marbotle">Tìm theo tên: </div>
 						<div>
 							<input class="form-control" type="text" id="Ten" name="Ten" placeholder="Nhập tên sản phẩm cần tìm">
@@ -147,12 +168,12 @@ if(isset($_COOKIE["errsignin"]))
 								while ( $row = $rs->fetch_assoc() ):
 									?>
 								<div class="input-group">
-									<div class="input-group-prepend">
-										<div class="input-group-text">
+									<span class="input-group-addon">
 											<input type="checkbox" id="SP<?= $row["CatID"] ?>" name="SP<?= $row["CatID"] ?>">
-										</div>
-									</div>
+										</span>
+								
 									<input class="form-control" type="text" value="<?= $row["CatName"]?>">
+
 								</div>
 								<?php
 								endwhile;
@@ -168,12 +189,12 @@ if(isset($_COOKIE["errsignin"]))
 								while ( $row = $rs->fetch_assoc() ):
 									?>
 								<div class="input-group">
-									<div class="input-group-prepend">
-										<div class="input-group-text">
+									<span class="input-group-addon">
 											<input type="checkbox" id="NSX<?= $row["IDNSX"] ?>" name="NSX<?= $row["IDNSX"] ?>">
-										</div>
-									</div>
+										</span>
+								
 									<input class="form-control" type="text" value="<?= $row["NameNSX"]?>">
+
 								</div>
 								<?php
 								endwhile;
@@ -181,12 +202,12 @@ if(isset($_COOKIE["errsignin"]))
 							</div>
 						</div>
 						<div class="martop col-sm-6">
-							<button class="btn btn-success my-2 my-sm-0" id="btnSearch" type="submit"><i class="fa fa-search"></i> Lọc</button>
+							<button class="btn btn-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i> Lọc</button>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="cardDanhMuc">
+			<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 				<?php include_once $page_body_file; ?>
 			</div>
 		</div>
@@ -210,15 +231,14 @@ if(isset($_COOKIE["errsignin"]))
 								<form class="form-horizontal" method="post" action="xuly.php" id="loginForm">
 									<input required="" id="userid" name="userid" type="text" class="form-control" placeholder="Tên đăng nhập" class="input-medium" required="">
 									<br>
-									<input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="Mật khẩu" class="input-medium">
+									<input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="********" class="input-medium">
 									<br>
 									<div class="form-check">
 										<label class="form-check-label">
-											<input type="checkbox" class="form-check-input" name="rememberme" id="rememberme" value="Remember me">
-											Ghi nhớ tài khoản
-										</label>
+												<input type="checkbox" name="rememberme" id="rememberme" value="Remember me"> Ghi nhớ tài khoản
+											</label>
+									
 									</div>
-									<br>
 									<button id="signin" name="signin" class="btn btn-success">Đăng nhập</button>
 								</form>
 							</div>
@@ -285,6 +305,14 @@ if(isset($_COOKIE["errsignin"]))
 		<script src="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 		<script type="text/javascript">
 		$(function () {
+			$('#txtQuantity').TouchSpin({
+				min: 1,
+				max: <?= $row["Quantity"] ?>
+			});
+		});
+		</script>
+		<script type="text/javascript">
+		$(function () {
 			$('#nhonhat').TouchSpin({
 				min: 0,
                 max: 1000000000,
@@ -316,174 +344,5 @@ if(isset($_COOKIE["errsignin"]))
 			});
 		</script>
 		<script src="views/user/userXL.js"></script>
-		<script src="views/phanTrang/phanTrang.js"></script>
-		<script>
-			var limit = 10;
-			var page = 1, current_page = 1;
-			var idDM = 1;
-			var loai = '';
-			
-			$(document).ready(function(){
-				load_DanhMuc();
-				load_NSX();
-//				load_Main(limit);
-				
-				$('#formsearch').on('submit', function(e){
-					$.ajax({
-						url: "views/phanTrang/search.php",
-						type: 'POST',
-						data: $('#formsearch').serialize(),
-						success: function(data){
-							$("#cardDanhMuc").html(data);
-						}
-					})
-					e.preventDefault();
-				})
-				
-				function load_Main(limit){
-					$.ajax({
-						url: "views/phanTrang/index.body.php",
-						type: "GET",
-						data: {limit: limit},
-						success: function(data){
-							$("#cardDanhMuc").html(data);
-						}
-					})
-				}
-				
-				function load_DanhMuc(){
-					$.ajax({
-						url: "views/phanTrang/danhMuc.php",
-						success: function(data){
-							$("#nav-DanhMuc").html(data);
-						}
-					})
-				}
-				
-				function load_NSX(){
-					$.ajax({
-						url: "views/phanTrang/NSX.php",
-						success: function(data){
-							$("#nav-NSX").html(data);
-						}
-					})
-				}
-				function load_Card(loai, id, page, limit){
-					if(loai == 'DanhMuc'){
-						$.ajax({
-						url: "views/phanTrang/card.php",
-						type: "GET",
-						data: {idDanhMuc: id, page: page, limit: limit},
-						success: function(data){
-							$("#cardDanhMuc").html(data);
-						}
-					})
-					}
-					else if(loai == 'NSX'){
-						$.ajax({
-						url: "views/phanTrang/card.php",
-						type: "GET",
-						data: {idNSX: id, page: page, limit: limit},
-						success: function(data){
-							$("#cardDanhMuc").html(data);
-						}
-					})
-					}
-				}
-				
-				function load_FullItem(idPro){
-					$.ajax({
-						url: "views/phanTrang/fullItem.php",
-						type: "GET",
-						data: {ProID: idPro},
-						success: function(data){
-							$("#cardDanhMuc").html(data);
-						}
-					})
-				}
-				
-				function QuantityTP(idPro, Quantity){
-					var quan = $('#txtQuantity').attr("quan");
-					$('#txtQuantity').TouchSpin({
-						min: 1,
-						max: quan
-					 });
-				}
-				
-				$(document).on('click', '#viewcart', function(){
-					$.ajax({
-						url: "views/phanTrang/viewcart.php",
-						success: function(data){
-							$("#cardDanhMuc").html(data);
-						}
-					})
-				});
-				
-				$(document).on('click', '.btnnavDanhMuc', function () {
-					var id = $(this).attr("id");
-					var loai = $(this).attr("loai");
-					load_Card(loai, id, 1, limit);
-					pagination(loai, id, 1, limit);
-				});
-				
-				$(document).on('click', '.btnnavNSX', function () {
-					var id = $(this).attr("id");
-					var loai = $(this).attr("loai");
-					load_Card(loai, id, 1, limit);
-					pagination(loai, id, 1, limit);
-				});
-				
-				$(document).on('click', '.btnFullItem', function () {
-					var idPro = $(this).attr("id");
-					load_FullItem(idPro);
-					QuantityTP();
-				});
-				
-
-				function pagination(loai, id, page, limit){
-					if(loai == 'DanhMuc'){
-						$.ajax({
-						url: "views/phanTrang/phanTrang.php",
-						type: "GET",
-						data: {idDanhMuc: id, page: page, limit: limit},
-						success: function(data){
-							$("#paginationNumber").html(data);
-						}
-					})
-					}
-					if(loai == 'NSX'){
-						$.ajax({
-						url: "views/phanTrang/phanTrang.php",
-						type: "GET",
-						data: {idNSX: id, page: page, limit: limit},
-						success: function(data){
-							$("#paginationNumber").html(data);
-						}
-					})
-					}
-				}
-				
-				
-				$(document).on('click', '.page-link', function () {
-					page = $(this).attr("id");
-					loai = $(this).attr("loai");
-					var id = $(this).attr("stt");
-					if (page == 'nextPage') {
-						load_Card(loai, id, parseInt(current_page + 1), limit);
-						pagination(loai, id, parseInt(current_page + 1), limit);
-						current_page++;
-					} else if (page == 'prevPage') {
-						load_Card(loai, id, parseInt(current_page - 1), limit);
-						pagination(loai, id, parseInt(current_page - 1), limit);
-						current_page--;
-					} else {
-						load_Card(loai, id, parseInt(page), limit);
-						pagination(loai, id, parseInt(page), limit);
-						current_page = page;
-					}
-				});
-				
-			})
-		</script>
 	</body>
 </html>

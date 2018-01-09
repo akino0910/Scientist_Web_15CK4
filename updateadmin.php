@@ -20,8 +20,9 @@ if (isset($_POST["btnSave"])) {
 	$id = $rs["max(ProID)"]+1;
 	if(isset($_POST["UpdatenotNew"]))
 	{
-		$idP = $_POST["UpdatenotNew"];
-		$sql = "update products set ProName = '$name', TinyDes = '$tinyDes', FullDes = '$fullDes', Price = '$price',CatID = '$catId', IDNSX = '$IdNSX', Quantity = '$quantity', XX = '$XX' where ProID = $idP";
+
+		$id = $_POST["UpdatenotNew"];
+		$sql = "update products set ProName = '$name', TinyDes = '$tinyDes', FullDes = '$fullDes', Price = '$price',CatID = '$catId', IDNSX = '$IdNSX', Quantity = '$quantity', XX = '$XX' where ProID = $id";
 	}
 	else
 	{
@@ -84,13 +85,13 @@ if (isset($_POST["btnSave"])) {
 							<h3 class="panel-title">Quyền Admin</h3>
 						</div>
 						<div class="list-group">
-							<a class="list-group-item" href="updateadmin.php">Thêm sản phẩm</a>
 								<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Quản lý danh mục và NSX
 								</a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
 									<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
+									<a class="dropdown-item" href="chuyendm.php">Chuyển DM và NSX</a>
 								</div>
 							<a class="list-group-item" href="admin.php?quyen=1">Quản lý sản phẩm</a>
 							<a class="list-group-item" href="admin.php?quyen=0">Quản lý đơn hàng</a>

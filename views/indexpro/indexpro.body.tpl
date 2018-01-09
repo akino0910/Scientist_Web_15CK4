@@ -1,8 +1,8 @@
 <?php
 if(isset($_GET["SP"]))
 {
-	$sql = "select * from categories";
-	$nrc = findnumrow($sql);
+	$sql = "select max(CatID) from categories";
+	$nrc = load($sql)->fetch_assoc()['max(CatID)'];
 	$SP = $_GET["SP"];
 	if($SP <= 0)
 	{
@@ -16,8 +16,8 @@ if(isset($_GET["SP"]))
 }
 elseif(isset($_GET["NSX"]))
 {
-	$sql = "select * from nsx";
-	$nrsx = findnumrow($sql);
+	$sql = "select max(IDNSX) from nsx";
+	$nrsx = load($sql)->fetch_assoc()['max(IDNSX)'];
 	$NSX = $_GET["NSX"];
 	if($NSX <= 0)
 	{
@@ -43,7 +43,15 @@ else
 		<div class="row">
 			<?php
 				$rs = load($sql);
+				if($rs ->fetch_assoc() == null)
+				{
+					echo "<div> Không có sản phẩm trong mục cần tìm </div>";
+				}
+				else
+				{
 				while($row = $rs -> fetch_assoc()) :
+				
+				
 			?>
 			<div class="col-sm-4">
 				<div class="card cao">
@@ -64,14 +72,15 @@ else
 							<button class="btn btn-success" type="submit" name="btnAddItemToCart">
 							Mua
 							</button>
-						
-						<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
+							
+							<a href="viewpros.php?Pro=<?= $row['ProID'] ?>" class="btn btn-secondary">Xem chi tiết</a>
 						</form>
 					</div>
 				</div>
 			</div>
 			<?php
 			endwhile;
+			}
 			?>
 		</div>
 	</div>

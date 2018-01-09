@@ -51,7 +51,7 @@ if (isset($_POST["signin"])) {
 				$user_id = $_SESSION["current_admin"]->f_ID;
 				setcookie("auth_admin_id_id", $user_id, time() + 86400);
 			}
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			header('Location: admin.php?quyen=0');
 		} else {
 			setcookie("errsignin", 1, time() + 3600);
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -167,13 +167,13 @@ rmdir($dirPath);
 							<h3 class="panel-title">Quyền Admin</h3>
 						</div>
 						<div class="list-group">
-							<a class="list-group-item" href="updateadmin.php">Thêm sản phẩm</a>
 							<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Quản lý danh mục và NSX
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
 								<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
+								<a class="dropdown-item" href="chuyendm.php">Chuyển DM và NSX</a>
 							</div>
 							<a class="list-group-item" href="?quyen=1">Quản lý sản phẩm</a>
 							<a class="list-group-item" href="?quyen=0">Quản lý đơn hàng</a>
@@ -301,6 +301,10 @@ rmdir($dirPath);
 										<div class="list-group col-1">
 										</div>
 										<div class="list-group col-10">
+											<div class="row">
+												<div class="col-10"></div>
+											<a class="btn btn-primary" href="updateadmin.php" role="button"><i class="fa fa"></i>Thêm sản phẩm</a>
+											</div>
 											<table class="table table-hover">
 												<thead>
 													<tr>

@@ -13,9 +13,10 @@ if(isset($_POST["Remove"]))
 		$Cid = $_POST["CatID"];
 		$sql = "delete from categories where CatID = $Cid";
 		write($sql);
+		$sql = "delete from products where CatID = $Cid";
+		write($sql);
 	}
-	header( "refresh:3;url=xulydanhmuc.php" ); 
-  	echo "<div class='alert alert-success text-center' role='alert'><strong>Xóa thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
+	header( "refresh:3;url=xulydanhmuc.php" );
 }
 if(isset($_POST["OK"]))
 {
@@ -25,28 +26,23 @@ if(isset($_POST["OK"]))
 		$max = load($sql)->fetch_assoc();
 		$id = $max["max(CatID)"] + 1;
 		$NAME = $_POST["Name"];
-		if($NAME == "")
+		if($NAME != "")
 		{
-			$NAME = "No-Name";
-		}
 		$sql = "insert into categories values ($id ,'$NAME')";
+		write($sql);
+		}
 	}
 	else
 	{
 		$ID = $_POST["ID"];
 		$NAME = $_POST["Name"];
-		if($NAME == "")
+		if($NAME != "")
 		{
-			$NAME = "No-Name";
-		}
 		$sql = "update categories set CatName = '$NAME' where CatID = $ID";
+		write($sql);
+		}
 	}
-	
-	write($sql);
-	// header('Location: xulydanhmuc.php');
-	// echo "<script> alert('Hello! I am an alert box!'); </script>";
-	header( "refresh:3;url=xulydanhmuc.php" ); 
-  	echo "<div class='alert alert-success text-center' role='alert'><strong>Thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
+	header( "refresh:3;url=xulydanhmuc.php" );
 }
 ?>
 <!DOCTYPE html>
@@ -90,14 +86,14 @@ if(isset($_POST["OK"]))
 							<h3 class="panel-title">Quyền Admin</h3>
 						</div>
 						<div class="list-group">
-							<a class="list-group-item" href="updateadmin.php">Thêm sản phẩm</a>
-								<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Quản lý danh mục và NSX
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
-									<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
-								</div>
+							<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Quản lý danh mục và NSX
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
+								<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
+								<a class="dropdown-item" href="chuyendm.php">Chuyển DM và NSX</a>
+							</div>
 							<a class="list-group-item" href="admin.php?quyen=1">Quản lý sản phẩm</a>
 							<a class="list-group-item" href="admin.php?quyen=0">Quản lý đơn hàng</a>
 						</div>
@@ -109,6 +105,10 @@ if(isset($_POST["OK"]))
 							<h3 class="borderdiv">Cập nhật danh mục</h3>
 						</div>
 						<div class="row">
+							<?php 
+							if(!isset($_POST['OK']) && !isset($_POST['Remove']))
+							{
+							?>
 							<div class="col-2"></div>
 							<div class="col-8">
 								<form action="" method="post">
@@ -135,6 +135,20 @@ if(isset($_POST["OK"]))
 									?>
 								</form>
 							</div>
+							<?php
+							}
+							else
+							{
+								if(isset($_POST['Name']) && $_POST['Name'] == '')
+								{
+									echo "<div class='alert alert-danger text-center col-12' role='alert'><strong>Thất bại!</strong> Nội dung bị rỗng! Chờ 3s để quay lại!</div>";
+								}
+								else
+								{
+								echo "<div class='alert alert-success text-center col-12' role='alert'><strong>Xử lý thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
+								}
+							}
+							?>
 						</div>
 					</div>
 				</div>

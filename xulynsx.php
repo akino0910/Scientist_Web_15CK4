@@ -48,13 +48,13 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
 							<h3 class="panel-title">Quyền Admin</h3>
 						</div>
 						<div class="list-group">
-							<a class="list-group-item" href="updateadmin.php">Thêm sản phẩm</a>
 								<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Quản lý danh mục và NSX
 								</a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
 									<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
+									<a class="dropdown-item" href="chuyendm.php">Chuyển DM và NSX</a>
 								</div>
 							<a class="list-group-item" href="admin.php?quyen=1">Quản lý sản phẩm</a>
 							<a class="list-group-item" href="admin.php?quyen=0">Quản lý đơn hàng</a>
@@ -64,7 +64,7 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
 				<div class="col-md-10 col-lg-10">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="borderdiv">Quản lý danh mục</h3>
+							<h3 class="borderdiv">Quản lý NSX</h3>
 						</div>
 						<div class="panel-body">
 							
@@ -72,7 +72,7 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Tên danh mục</th>
+										<th>Tên NSX</th>
 										<th class="text-right">Xóa</th>
 									</tr>
 								</thead>
@@ -106,7 +106,7 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
 									</div>
 									
 								</div>
-								
+								<div class="red">Lưu ý: Nếu xóa NSX sẽ xóa tất cả các sản phẩm đang thuộc NSX đó, vui lòng <a class="dam" href="chuyendm.php"> chuyển NSX </a> hoặc backup lại dữ liệu trước khi xóa NSX.</div>
 							</div>
 						</div>
 					</div>

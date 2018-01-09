@@ -13,9 +13,10 @@ if(isset($_POST["Remove"]))
 		$Cid = $_POST["IDNSX"];
 		$sql = "delete from nsx where IDNSX = $Cid";
 		write($sql);
+		$sql = "delete from products where IDNSX = $Cid";
+		write($sql);
 	}
-	header( "refresh:3;url=xulynsx.php" ); 
-  	echo "<div class='alert alert-success text-center' role='alert'><strong>Xóa thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
+	header( "refresh:3;url=xulynsx.php" );
 }
 if(isset($_POST["OK"]))
 {
@@ -25,25 +26,23 @@ if(isset($_POST["OK"]))
 		$max = load($sql)->fetch_assoc();
 		$id = $max["max(IDNSX)"] + 1;
 		$NAME = $_POST["Name"];
-		if($NAME == "")
+		if($NAME != "")
 		{
-			$NAME = "No-Name";
-		}
 		$sql = "insert into nsx values ($id ,'$NAME')";
+		write($sql);
+		}
 	}
 	else
 	{
 		$ID = $_POST["ID"];
 		$NAME = $_POST["Name"];
-		if($NAME == "")
+		if($NAME != "")
 		{
-			$NAME = "No-Name";
-		}
 		$sql = "update nsx set NameNSX = '$NAME' where IDNSX = $ID";
+		write($sql);
+		}
 	}
-	write($sql);
-	header( "refresh:3;url=xulynsx.php" ); 
-  	echo "<div class='alert alert-success text-center' role='alert'><strong>Xóa thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
+	header( "refresh:3;url=xulynsx.php" );
 }
 ?>
 <!DOCTYPE html>
@@ -87,13 +86,13 @@ if(isset($_POST["OK"]))
 							<h3 class="panel-title">Quyền Admin</h3>
 						</div>
 						<div class="list-group">
-							<a class="list-group-item" href="updateadmin.php">Thêm sản phẩm</a>
 								<a class="dropdown-toggle list-group-item" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Quản lý danh mục và NSX
 								</a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<a class="dropdown-item" href="xulydanhmuc.php">Cập nhật danh mục</a>
 									<a class="dropdown-item" href="xulynsx.php">Cập nhật nhà sản xuất</a>
+									<a class="dropdown-item" href="chuyendm.php">Chuyển DM và NSX</a>
 								</div>
 							<a class="list-group-item" href="admin.php?quyen=1">Quản lý sản phẩm</a>
 							<a class="list-group-item" href="admin.php?quyen=0">Quản lý đơn hàng</a>
@@ -106,6 +105,10 @@ if(isset($_POST["OK"]))
 							<h3 class="borderdiv">Cập nhật danh mục</h3>
 						</div>
 						<div class="row">
+							<?php 
+							if(!isset($_POST['OK']) && !isset($_POST['Remove']))
+							{
+							?>
 							<div class="col-2"></div>
 							<div class="col-8">
 								<form action="" method="post">
@@ -113,7 +116,7 @@ if(isset($_POST["OK"]))
 									if(!isset($_POST["Update"]))
 									{
 									?>
-									Tên danh mục: <input class="form-control" name="Name" id="Name" placeholder="Tên danh mục">
+									Tên danh mục: <input class="form-control" name="Name" id="Name" placeholder="Tên NSX">
 									<div class="text-right martop">
 										<button class="btn btn-success" name="OK" id="OK"><li class="fa fa-check"></li></button>
 									</div>
@@ -122,7 +125,7 @@ if(isset($_POST["OK"]))
 									elseif(isset($_POST["Update"]))
 									{
 									?>
-									Tên danh mục: <input class="form-control" name="Name" id="Name" value="<?= $_POST["NameNSX"] ?>" placeholder="Tên danh mục">
+									Tên danh mục: <input class="form-control" name="Name" id="Name" value="<?= $_POST["NameNSX"] ?>" placeholder="Tên NSX">
 									<input class="form-control" type="hidden" name="ID" id="ID" value="<?= $_POST["IDNSX"] ?>">
 									<div class="text-right martop">
 										<button class="btn btn-success" name="OK" id="OK"><li class="fa fa-check"></li></button>
@@ -132,6 +135,20 @@ if(isset($_POST["OK"]))
 									?>
 								</form>
 							</div>
+							<?php 
+							}
+							else
+							{
+								if(isset($_POST['Name']) && $_POST['Name'] == '')
+								{
+									echo "<div class='alert alert-danger text-center col-12' role='alert'><strong>Thất bại!</strong> Nội dung bị rỗng! Chờ 3s để quay lại!</div>";
+								}
+								else
+								{
+								echo "<div class='alert alert-success text-center col-12' role='alert'><strong>Xử lý thành công!</strong> Bạn sẽ được chuyển về trang quản lý sau 3 giây!</div>";
+								}
+							}
+							?>
 						</div>
 					</div>
 				</div>
