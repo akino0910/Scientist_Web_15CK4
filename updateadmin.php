@@ -8,6 +8,10 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] == 0)
 }
 if (isset($_POST["btnSave"])) {
 	$name = $_POST["txtProName"];
+	if($name == '')
+	{
+		$name = 'No-name';
+	}
 	$price = $_POST["txtPrice"];
 	$quantity = $_POST["Quantity"];
 	$catId = $_POST["selCatID"];
@@ -49,6 +53,7 @@ if (isset($_POST["btnSave"])) {
 	<head>
 		<meta charset="utf-8">
 		<title>Quản lý sản phẩm</title>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
 		<link rel="stylesheet" href="assets/bootstrap4.min.css" >
 		<link rel="stylesheet" type="text/css" href="assets/style.css">
 		<link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -128,13 +133,13 @@ if (isset($_POST["btnSave"])) {
 								<div class="form-group">
 									<label for="txtPrice" class="col-sm-2 control-label">Giá</label>
 									<div class="col-sm-12">
-										<input type="text" class="form-control" id="txtPrice" name="txtPrice" placeholder="30,000,000" <?php if(isset($_POST["ProID"])){	?> value="<?= $rs["Price"] ?>" <?php	} ?>>
+										<input type="text" class="form-control" id="txtPrice" name="txtPrice" placeholder="30,000,000" <?php if(isset($_POST["ProID"])){	?> value="<?= $rs["Price"] ?>" <?php } else{ ?> value="0" <?php } ?>>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="txtPrice" class="col-sm-2 control-label">Số lượng</label>
 									<div class="col-sm-12">
-										<input type="number" class="form-control" id="Quantity" name="Quantity" placeholder="1" <?php if(isset($_POST["ProID"])){	?> value="<?= $rs["Quantity"] ?>" <?php	} ?>>
+										<input type="text" class="form-control" id="Quantity" name="Quantity" <?php if(isset($_POST["ProID"])){	?> value="<?= $rs["Quantity"] ?>" <?php	} else{ ?> value="0" <?php } ?>>
 									</div>
 								</div>
 								<div class="form-group">
@@ -217,6 +222,16 @@ if (isset($_POST["btnSave"])) {
 		<script src="assets/popper.min.js"></script>
 		<script src="assets/bootstrap4.min.js"></script>
 		<script src="assets/tinymce/tinymce.min.js"></script>
+		<script src="assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+		<script type="text/javascript">
+		$(function () {
+			$('#Quantity').TouchSpin({
+				min: 0,
+                max: 1000,
+                step: 1
+			});
+		});
+		</script>
 		<script type="text/javascript">
 			tinymce.init({
 			selector: '#txtFullDes',

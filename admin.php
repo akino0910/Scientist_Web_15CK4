@@ -85,6 +85,10 @@ if(isset($_POST["remove"]))
 	}
 echo "<div class='alert alert-success text-center' role='alert'><strong>Thành công!</strong> Đã xóa dữ liệu!</div>";
 }
+if(!isset($_GET["quyen"]))
+{
+	$_GET["quyen"] = 0;
+}
 if(isset($_GET["quyen"]))
 {
 	if($_GET["quyen"]<0)
