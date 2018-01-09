@@ -25,26 +25,30 @@ if(isset($_POST["tt"]))
 		}
 		write($sql);
 		// header('Location: ' . $_SERVER['HTTP_REFERER']);
+		echo "<div class='alert alert-success text-center' role='alert'><strong>Cập nhật thông tin thành công!</strong></div>";
 	}
 	if(isset($_POST["oldpass"]) && isset($_POST["pass"]) && isset($_POST["repass"])){
 		$ID = $nguoidung->f_ID;
 		$oldpass2 = md5($_POST["oldpass"]);
-		var_dump($oldpass2);
 		$pass = md5($_POST["pass"]);
 		$repass = md5($_POST["repass"]);
 		if ($oldpass2 != $oldpass) {
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			echo "<div class='alert alert-danger text-center' role='alert'><strong>Sai mật khẩu!</strong></div>";
+			
 		}
 		elseif($pass != $repass)
 		{
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			echo "<div class='alert alert-danger text-center' role='alert'><strong>Mật khẩu mới và mật khẩu xác nhận không trùng khớp!</strong></div>";
 		}
 		else
 		{
 			$sql = "update users set f_Password = '$pass' where f_ID = $ID";
+			write($sql);
+			echo "<div class='alert alert-success text-center' role='alert'><strong>Cập nhật thông tin thành công!</strong></div>";
 		}
-		write($sql);
+		
 		// header('Location: ' . $_SERVER['HTTP_REFERER']);
+		
 	}
 	$sql = "select * from users where f_ID = '$ID'";
 	$rs = load($sql);
