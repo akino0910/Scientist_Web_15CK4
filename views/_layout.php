@@ -33,8 +33,8 @@ if(isset($_COOKIE["errsignin"]))
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
-<body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<a class="navbar-brand" href="index.php"><i class="fa fa-camera"></i> ProCam</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -234,38 +234,74 @@ if(isset($_COOKIE["errsignin"]))
 									<input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="********" class="input-medium">
 									<br>
 									<div class="form-check">
-										<label class="form-check-label">
-												<input type="checkbox" name="rememberme" id="rememberme" value="Remember me"> Ghi nhớ tài khoản
-											</label>
-									
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" name="rememberme" id="rememberme" value="Remember me">
+											<span class="custom-control-indicator"></span>
+											<span class="custom-control-description">Ghi nhớ tài khoản</span>
+										</label>
 									</div>
 									<button id="signin" name="signin" class="btn btn-success">Đăng nhập</button>
 								</form>
 							</div>
 							<div class="tab-pane fade" id="signup">
 								<form class="form-horizontal" method="post" id="regForm">
-									<input type="text" id="regName" class="form-control" placeholder="Họ và tên">
-									<div class="alert alert-danger" role="alert" style="display: none" id="errName">
-										<strong>(◕‿◕)</strong> Nhập họ và tên vào hộ mình nhé.
+									<!--Name-->
+									<div class="input-group ">
+										<input type="text" id="regName" class="form-control" placeholder="Họ và tên">
+										<span id="errName" class="input-group-addon danger" style="display: none">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</span>
 									</div>
 									<br>
-									<input type="text" id="regUsername" class="form-control" placeholder="Tên tài khoản">
-									<div class="alert alert-danger" role="alert" style="display: none" id="errUsername"></div>
-									<br>
-									<input type="email" id="regEmail" class="form-control" placeholder="Email">
-									<div class="alert alert-danger" role="alert" style="display: none" id="errEmail"></div>
-									<br>
-									<input type="password" id="regPass" class="form-control" placeholder="Mật khẩu">
-									<div class="alert alert-danger" role="alert" style="display: none" id="errPass"></div>
-									<br>
-									<input type="password" id="regRePass" class="form-control" placeholder="Nhập lại mật khẩu">
-									<div class="alert alert-danger" role="alert" style="display: none" id="errRePass"></div>
-									<br>
-									<div class="g-recaptcha" data-sitekey="6Ld9zjgUAAAAAHpQ35RNeLBFfzZHsr2GmHA9xrnS"></div>
-									<div class="alert alert-danger" role="alert" id="errCaptcha" style="display: none">
-										<strong>(￣_￣)・・・</strong> Chú ý capcha kìa bạn ơi.
+									
+									<!--Username-->
+									<div class="input-group">
+										<input type="text" id="regUsername" class="form-control" placeholder="Tên tài khoản">
+										<span id="errUsername" class="input-group-addon danger" style="display: none">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</span>
 									</div>
 									<br>
+							
+									<!--		Email-->
+									<div class="input-group ">
+										<input type="email" id="regEmail" class="form-control" placeholder="Email">
+										<span id="errEmail" class="input-group-addon danger" style="display: none">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</span>
+									
+									</div>
+									<br>
+							
+									<!--Pass-->
+									<div class="input-group ">
+										<input type="password" id="regPass" class="form-control" placeholder="Mật khẩu">
+										<span id="errPass" class="input-group-addon danger" style="display: none">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</span>
+									
+									</div>
+									<br>
+							
+									<!--RePass-->
+									<div class="input-group ">
+										<input type="password" id="regRePass" class="form-control" placeholder="Nhập lại mật khẩu">
+										<span id="errRePass" class="input-group-addon danger" style="display: none">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</span>
+									
+									</div>
+									<br>
+							
+									<!--ReCaptcha-->
+									<div class="input-group ">
+										<div class="g-recaptcha" data-sitekey="6Ld9zjgUAAAAAHpQ35RNeLBFfzZHsr2GmHA9xrnS"></div>
+										<span id="errCaptcha" class="input-group-addon danger" style="display: none">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</span>
+									</div>
+									<br>
+
 									<button id="btnReg" type="button" class="btn btn-success">Đăng ký</button>
 								</form>
 							</div>

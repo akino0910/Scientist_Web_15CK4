@@ -1,20 +1,16 @@
-a{
+a {
 	color: #212529;
 }
-.dam
-{
+.dam {
 	font-weight: bold;
 }
-.borderbot
-{
+.borderbot {
 	border-bottom: 1px solid #ABB1BA;
 }
-.borderleft
-{
+.borderleft {
 	border-left: 1px solid #ABB1BA;
 }
-.borderdiv
-{
+.borderdiv {
 	border: 1px solid #DFDFDF;
 	border-radius: 4px;
 	background-color: #343A40;
@@ -22,46 +18,78 @@ a{
 	text-align: center;
 	margin-top: 10px;
 }
-.marbotle
-{
-  margin-left: 20px;
-  margin-bottom: 20px;
+.marbotle {
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
-.martop
-{
+.martop {
 	margin-top: 10px;
 }
-.input-recaptcha{
- width:172px;   
+.input-recaptcha {
+	width: 172px;
 }
-.red
-{
+.red {
 	color: red;
 	font-size: 22px;
 }
-.cao
-{
+.cao {
 	height: 300px;
+	margin-bottom: .75rem;
 }
-.hei
-{
+.hei {
 	height: 350px;
 }
 .modal {
-  text-align: center;
+	text-align: center;
 }
 
-@media screen and (min-width: 768px) { 
-  .modal:before {
-    display: inline-block;
-    vertical-align: middle;
-    content: " ";
-    height: 100%;
-  }
+@media screen and (min-width: 768px) {
+.modal:before {
+	display: inline-block;
+	vertical-align: middle;
+	content: " ";
+	height: 100%;
 }
-
+}
 .modal-dialog {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+}
+body {
+	position: relative;
+}
+.input-group-addon.primary {
+	color: rgb(255, 255, 255);
+	background-color: rgb(50, 118, 177);
+	border-color: rgb(40, 94, 142);
+}
+.input-group-addon.success {
+	color: rgb(255, 255, 255);
+	background-color: rgb(92, 184, 92);
+	border-color: rgb(76, 174, 76);
+}
+.input-group-addon.info {
+	color: rgb(255, 255, 255);
+	background-color: rgb(57, 179, 215);
+	border-color: rgb(38, 154, 188);
+}
+.input-group-addon.warning {
+	color: rgb(255, 255, 255);
+	background-color: rgb(240, 173, 78);
+	border-color: rgb(238, 162, 54);
+}
+.input-group-addon.danger {
+	color: rgb(255, 255, 255);
+	background-color: rgb(217, 83, 79);
+	border-color: rgb(212, 63, 58);
+}
+.tooltip-inner {
+	color: rgb(255, 255, 255);
+	font-weight: 700;
+	background-color: rgb(217, 83, 79);
+}
+.tooltip.bs-tooltip-auto[x-placement^=right] .arrow::before, .tooltip.bs-tooltip-right .arrow::before {
+	border-right-color: rgb(217, 83, 79);
 }
