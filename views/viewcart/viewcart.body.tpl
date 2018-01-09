@@ -29,11 +29,11 @@
 					$row = $rs->fetch_assoc();
 					$amount = $q * $row["Price"];
 					$total += $amount;
-					if($q>$row["Quantity"])
+					if($q>$row["Quantity"] || $q == 0)
 					{
 						$ttthanhtoan = 0;
 					}
-					if($q>$row["Quantity"])
+					if($q>$row["Quantity"] || $q == 0)
 					{
 				?>
 				<tr class="alert-danger">
@@ -55,9 +55,9 @@
 						<td><?= number_format($amount) ?></td>
 						<td>
 							<?php
-								if($q>$row["Quantity"]){
+								if($q>$row["Quantity"] || $q == 0){
 							?>
-							Vượt số lượng tồn
+							Lỗi số lượng
 							<?php
 							}
 							else

@@ -1,6 +1,6 @@
 <?php
 require_once "./lib/db.php";
-session_start();
+require_once 'cart.inc';
 $nguoidung = $_SESSION["current_user"];
 $oldpass = $nguoidung->f_Password;
 if (!isset($_SESSION["ttdn"]) || $_SESSION["ttdn"] == 0)
@@ -76,6 +76,11 @@ if(isset($_POST["tt"]))
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					
+				</ul>
+				<ul class="navbar-nav mr-0">
+					<li class="nav-item">
+						<a class="nav-link" href="viewcart.php"><i class="fa fa-cart-arrow-down"></i> Giỏ hàng (<?= get_total_items() ?>) </a>
+					</li>
 				</ul>
 				<ul class="navbar-nav mr-0">
 				</ul>
@@ -249,9 +254,9 @@ if(isset($_POST["tt"]))
 									</tbody>
 								</table>
 								<div>
-								<a class="btn btn-xs btn-success" href="?td3" role="button">
-									Quay lại
-								</a>
+									<a class="btn btn-xs btn-success" href="?td3" role="button">
+										Quay lại
+									</a>
 								</div>
 							</div>
 						</div>

@@ -89,12 +89,11 @@
 			{
 	?>
 	<div class="col-sm-2">
-		<div class="card cao">
+		<div class="card hei">
 			<div class="card-body">
-				<img src="img/product/<?= $kq['ProID'] ?>/1.png" style="width: 100px;">
+				<img src="img/product/<?= $kq['ProID'] ?>/1.png" style="width: 80px;">
 				<div class="dam martop"><?= $kq["ProName"] ?></div>
 				<p class="red"><?= number_format($kq["Price"]) ?>đ</p>
-				
 			</div>
 			<div class="marbotle">
 				<form name="faddpro" action="addItemToCart.inc.php" method="post">
@@ -128,9 +127,9 @@
 			{
 	?>
 	<div class="col-sm-2">
-		<div class="card cao">
+		<div class="card hei">
 			<div class="card-body">
-				<img src="img/product/<?= $kq['ProID'] ?>/1.png" style="width: 100px;">
+				<img src="img/product/<?= $kq['ProID'] ?>/1.png" style="width: 80px;">
 				<div class="dam martop"><?= $kq["ProName"] ?></div>
 				<p class="red"><?= number_format($kq["Price"]) ?>đ</p>
 			</div>
